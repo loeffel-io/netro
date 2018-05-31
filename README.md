@@ -12,6 +12,7 @@ The Framework for WordPress Developers
 - Commands
 - Helper
 - Auth
+- Frontend (Webpack - Laravel Mix) 
 - Custom Post Types
   - Create
   - Read
