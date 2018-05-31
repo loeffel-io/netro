@@ -10,6 +10,7 @@ The Framework for WordPress Developers
 - Logging
 - Middleware
 - Commands
+- Helper
 - Custom Post Types
   - Create
   - Read
