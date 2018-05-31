@@ -11,6 +11,7 @@ The Framework for WordPress Developers
 - Middleware
 - Commands
 - Helper
+- Auth
 - Custom Post Types
   - Create
   - Read
