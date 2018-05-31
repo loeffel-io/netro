@@ -9,6 +9,7 @@ The Framework for WordPress Developers
 - Validation
 - Logging
 - Middleware
+- Commands
 - Custom Post Types
   - Create
   - Read
