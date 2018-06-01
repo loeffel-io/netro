@@ -34,4 +34,14 @@ class MailTest extends NetroTestCase
 
         $this->assertEquals($fromValue, 'Lucas Löffel <lucas@loeffel.io>');
     }
+
+    public function testSubject()
+    {
+        $mail = new Mail();
+        $mail->subject('Subject test');
+
+        $subjectValue = $this->getSecretProperty($mail, 'subject')->getValue($mail);
+
+        $this->assertEquals($subjectValue, 'Subject test');
+    }
 }

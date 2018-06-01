@@ -46,4 +46,15 @@ class Mail
 
         return $this;
     }
+
+    /**
+     * @param string $subject
+     * @return Mail
+     */
+    public function subject(string $subject): Mail
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
 }
