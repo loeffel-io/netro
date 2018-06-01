@@ -1,0 +1,40 @@
+{
+  "description": "The Framework for Wordpress Developers",
+  "keywords": [
+    "netro",
+    "framework",
+    "wordpress"
+  ],
+  "type": "project",
+  "homepage": "https://netro.io",
+  "authors": [
+    {
+      "name": "Lucas Löffel",
+      "email": "lucas@loeffel.io",
+      "homepage": "https://loeffel.io"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=7.1",
+    "nesbot/carbon": "~1.20",
+    "vlucas/phpdotenv": "~2.2",
+    "symfony/var-dumper": "^3.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.0",
+    "mockery/mockery": "^1.0"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

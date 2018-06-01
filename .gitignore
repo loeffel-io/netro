@@ -1,0 +1,24 @@
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.sass-cache/
+
+!.gitkeep
+.php_cs.cache
+
+# test coverage
+coverage.xml
+coverage
+
+# sami
+sami.phar
+.php_docs.cache
