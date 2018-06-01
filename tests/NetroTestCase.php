@@ -27,4 +27,9 @@ class NetroTestCase extends TestCase
 
         return $property;
     }
+
+    public function testTest()
+    {
+        $this->assertEquals(true, true);
+    }
 }
