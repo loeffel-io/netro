@@ -24,6 +24,7 @@ class Mail
     protected $headers;
 
     /**
+     * Set to
      * @param string $mail
      * @param string|null $name
      * @return Mail
@@ -36,6 +37,7 @@ class Mail
     }
 
     /**
+     * Set from
      * @param string $mail
      * @param string $name
      * @return Mail
@@ -48,12 +50,24 @@ class Mail
     }
 
     /**
+     * Set subject
      * @param string $subject
      * @return Mail
      */
     public function subject(string $subject): Mail
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @return Mail
+     */
+    public function message(string $message): Mail
+    {
+        $this->message = $message;
 
         return $this;
     }
