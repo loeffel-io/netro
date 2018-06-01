@@ -86,35 +86,21 @@ class Mail
     }
 
     /**
-     * Generate all headers
-     * @return array
-     */
-    private function headers(): array
-    {
-        $headers = [];
-
-        if ($this->from) {
-            $headers[] = $this->from;
-        }
-
-        if ($this->header) {
-            // add headers
-        }
-
-        return $headers;
-    }
-
-    /**
      * Send mail
      * @return bool
      */
     public function send(): bool
     {
+        // Add from to header
+        if (!empty($this->from)) {
+            $this->header[] = $this->from;
+        }
+
         return wp_mail(
             implode(",", $this->to),
             $this->subject,
             $this->message,
-            $this->headers()
+            $this->header
         );
     }
 }
