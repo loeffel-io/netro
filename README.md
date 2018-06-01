@@ -15,7 +15,8 @@ The Framework for WordPress Developers
 - Commands
 - Helper
 - Auth
-- Frontend (Webpack - Laravel Mix) 
+- Mail
+- Theme
 - Custom Post Types
   - Create
   - Read
@@ -25,7 +26,3 @@ The Framework for WordPress Developers
 - Hooks
   - Filter
   - Action
-- Mail
-  - SMTP
-  - Mailgun
-  - SES (Needs "aws/aws-sdk-php")
