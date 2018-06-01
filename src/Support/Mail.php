@@ -8,7 +8,7 @@ namespace Netro\Support;
  */
 class Mail
 {
-    /** @var array $from */
+    /** @var string $from */
     protected $from;
 
     /** @var array $to */
@@ -31,6 +31,18 @@ class Mail
     public function to(string $mail, string $name = null): Mail
     {
         $this->to[] = ['mail' => $mail, 'name' => $name];
+
+        return $this;
+    }
+
+    /**
+     * @param string $mail
+     * @param string $name
+     * @return Mail
+     */
+    public function from(string $mail, string $name): Mail
+    {
+        $this->from = "$name <$mail>";
 
         return $this;
     }

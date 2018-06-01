@@ -24,4 +24,14 @@ class MailTest extends NetroTestCase
             ['mail' => 'random@loeffel.io', 'name' => null]
         ]);
     }
+
+    public function testFrom()
+    {
+        $mail = new Mail();
+        $mail->from('lucas@loeffel.io', 'Lucas Löffel');
+
+        $fromValue = $this->getSecretProperty($mail, 'from')->getValue($mail);
+
+        $this->assertEquals($fromValue, 'Lucas Löffel <lucas@loeffel.io>');
+    }
 }
