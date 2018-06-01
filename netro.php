@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: netro
+Plugin Name: Netro
 Plugin URI: https://netro.io
 Description: The Framework for Wordpress Developers
 Version: 0.0.1
