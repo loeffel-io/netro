@@ -1,0 +1,4 @@
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Function get_template_directory_uri not found\.#'
