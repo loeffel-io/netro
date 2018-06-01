@@ -31,7 +31,7 @@ class Mail
      */
     public function to(string $mail, string $name = null): Mail
     {
-        $this->to[] = ['mail' => $mail, 'name' => $name];
+        $this->to[] = empty($name) ? $mail : "$name <$mail>";
 
         return $this;
     }
@@ -44,7 +44,7 @@ class Mail
      */
     public function from(string $mail, string $name): Mail
     {
-        $this->from = "$name <$mail>";
+        $this->from = "From: $name <$mail>";
 
         return $this;
     }
@@ -83,5 +83,38 @@ class Mail
         $this->header[] = $value;
 
         return $this;
+    }
+
+    /**
+     * Generate all headers
+     * @return array
+     */
+    private function headers(): array
+    {
+        $headers = [];
+
+        if ($this->from) {
+            $headers[] = $this->from;
+        }
+
+        if ($this->header) {
+            // add headers
+        }
+
+        return $headers;
+    }
+
+    /**
+     * Send mail
+     * @return bool
+     */
+    public function send(): bool
+    {
+        return wp_mail(
+            implode(",", $this->to),
+            $this->subject,
+            $this->message,
+            $this->headers()
+        );
     }
 }

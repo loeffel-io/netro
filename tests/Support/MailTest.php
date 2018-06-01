@@ -20,8 +20,8 @@ class MailTest extends NetroTestCase
         $toValue = $this->getSecretProperty($mail, 'to')->getValue($mail);
 
         $this->assertEquals($toValue, [
-            ['mail' => 'lucas@loeffel.io', 'name' => 'Lucas Löffel'],
-            ['mail' => 'random@loeffel.io', 'name' => null]
+            'Lucas Löffel <lucas@loeffel.io>',
+            'random@loeffel.io'
         ]);
     }
 
@@ -32,7 +32,7 @@ class MailTest extends NetroTestCase
 
         $fromValue = $this->getSecretProperty($mail, 'from')->getValue($mail);
 
-        $this->assertEquals($fromValue, 'Lucas Löffel <lucas@loeffel.io>');
+        $this->assertEquals($fromValue, 'From: Lucas Löffel <lucas@loeffel.io>');
     }
 
     public function testSubject()
