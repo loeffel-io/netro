@@ -61,7 +61,7 @@ class MailTest extends NetroTestCase
         $mail->header('Content-Type: text/html; charset=UTF-8');
         $mail->header('X-Mailer: PHP/' . phpversion());
 
-        $headerValue = $this->getSecretProperty($mail, 'header')->getValue($mail);
+        $headerValue = $this->getSecretProperty($mail, 'headers')->getValue($mail);
 
         $this->assertEquals($headerValue, [
             'Content-Type: text/html; charset=UTF-8',

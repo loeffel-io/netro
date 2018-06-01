@@ -20,8 +20,8 @@ class Mail
     /** @var string $message */
     protected $message;
 
-    /** @var array $header */
-    protected $header;
+    /** @var array $headers */
+    protected $headers;
 
     /**
      * Set to
@@ -80,7 +80,7 @@ class Mail
      */
     public function header(string $value): Mail
     {
-        $this->header[] = $value;
+        $this->headers[] = $value;
 
         return $this;
     }
@@ -93,14 +93,14 @@ class Mail
     {
         // Add from to header
         if (!empty($this->from)) {
-            $this->header[] = $this->from;
+            $this->headers[] = $this->from;
         }
 
         return wp_mail(
             implode(",", $this->to),
             $this->subject,
             $this->message,
-            $this->header
+            $this->headers
         );
     }
 }
