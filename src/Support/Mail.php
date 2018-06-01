@@ -20,8 +20,8 @@ class Mail
     /** @var string $message */
     protected $message;
 
-    /** @var array $headers */
-    protected $headers;
+    /** @var array $header */
+    protected $header;
 
     /**
      * Set to
@@ -62,12 +62,25 @@ class Mail
     }
 
     /**
+     * Set message
      * @param string $message
      * @return Mail
      */
     public function message(string $message): Mail
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Set header
+     * @param string $value
+     * @return Mail
+     */
+    public function header(string $value): Mail
+    {
+        $this->header[] = $value;
 
         return $this;
     }
