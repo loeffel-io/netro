@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Support;
+namespace Tests\Unit\Support;
 
 use Netro\Support\Mail;
-use Tests\NetroTestCase;
+use Tests\Unit\NetroTestCase;
 
 /**
  * Class MailTest
@@ -11,6 +11,9 @@ use Tests\NetroTestCase;
  */
 class MailTest extends NetroTestCase
 {
+    /**
+     * @throws \ReflectionException
+     */
     public function testTo()
     {
         $mail = new Mail();
@@ -25,6 +28,9 @@ class MailTest extends NetroTestCase
         ]);
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function testFrom()
     {
         $mail = new Mail();
@@ -35,6 +41,9 @@ class MailTest extends NetroTestCase
         $this->assertEquals($fromValue, 'From: Lucas Löffel <lucas@loeffel.io>');
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function testSubject()
     {
         $mail = new Mail();
@@ -45,6 +54,9 @@ class MailTest extends NetroTestCase
         $this->assertEquals($subjectValue, 'Subject test');
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function testMessage()
     {
         $mail = new Mail();
@@ -55,6 +67,9 @@ class MailTest extends NetroTestCase
         $this->assertEquals($messageValue, 'Message test');
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function testHeader()
     {
         $mail = new Mail();
