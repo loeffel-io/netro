@@ -1,0 +1,24 @@
+notifications:
+  email: false
+  slack: false
+
+language: php
+
+php:
+  - 7.1
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+
+before_script:
+  - composer global require hirak/prestissimo
+  - composer install --dev --prefer-source --no-interaction
+
+script:
+  - ./vendor/bin/phpstan analyse -c phpstan.neon --level=5 src
+  - ./vendor/bin/phpstan analyse -c phpstan.neon --level=5 tests
+  - ./vendor/bin/phpcs --standard=PSR2 --extensions=php src/ tests/
+  - ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
