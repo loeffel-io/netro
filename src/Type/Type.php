@@ -4,6 +4,7 @@ namespace Netro\Type;
 
 use WP_Post;
 use WP_Query;
+use Exception;
 
 /**
  * Class Type
@@ -50,10 +51,13 @@ abstract class Type implements TypeInterface
 
     /**
      * @param int $id
+     * @return Type
      */
-    public function setId(int $id): void
+    protected function setId(int $id): Type
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -66,10 +70,13 @@ abstract class Type implements TypeInterface
 
     /**
      * @param string $postType
+     * @return Type
      */
-    public function setPostType(string $postType): void
+    public function setPostType(string $postType): Type
     {
         $this->postType = $postType;
+
+        return $this;
     }
 
     /**
@@ -82,10 +89,13 @@ abstract class Type implements TypeInterface
 
     /**
      * @param string $title
+     * @return Type
      */
-    public function setTitle(string $title): void
+    public function setTitle(string $title): Type
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -98,10 +108,13 @@ abstract class Type implements TypeInterface
 
     /**
      * @param string $content
+     * @return Type
      */
-    public function setContent(string $content): void
+    public function setContent(string $content): Type
     {
         $this->content = $content;
+
+        return $this;
     }
 
     /**
@@ -146,5 +159,24 @@ abstract class Type implements TypeInterface
         return array_map(function ($post) {
             return $this->new($post);
         }, $query->posts);
+    }
+
+    /**
+     * @return Type
+     * @throws Exception
+     */
+    public function update(): Type
+    {
+        $update = wp_update_post([
+            'ID' => $this->getId(),
+            'post_title' => $this->getTitle(),
+            'post_content' => $this->getContent(),
+        ], true);
+
+        if (is_wp_error($update)) {
+            throw new Exception($update->get_error_message());
+        }
+
+        return $this;
     }
 }
