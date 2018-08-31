@@ -8,5 +8,5 @@ namespace Netro\Type;
  */
 class Page extends Type implements TypeInterface
 {
-    protected $postType = "post";
+    protected $postType = "page";
 }
