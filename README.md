@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.com/loeffel-io/netro.svg?token=diwUYjrdo8kHiwiMCFuq&branch=master)](https://travis-ci.com/loeffel-io/netro)
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![codecov](https://codecov.io/gh/loeffel-io/netro/branch/master/graph/badge.svg?token=tmPeOhqvU6)](https://codecov.io/gh/loeffel-io/netro)
 
 # Netro
 The Framework for WordPress Developers
