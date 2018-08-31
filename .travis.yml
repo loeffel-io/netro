@@ -22,3 +22,4 @@ script:
   - ./vendor/bin/phpstan analyse -c phpstan.neon --level=5 tests
   - ./vendor/bin/phpcs --standard=PSR2 --extensions=php src/ tests/
   - ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
+  - bash <(curl -s https://codecov.io/bash) -t 73c0526e-22ce-4a14-a5d7-3c2261cb3ec6
