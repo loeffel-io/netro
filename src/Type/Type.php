@@ -159,17 +159,17 @@ abstract class Type implements TypeInterface
     }
 
     /**
-     * @param null|string $name
+     * @param null|string $size
      * @return string
      */
-    public function getImage(? string $name = 'thumbnail'): string
+    public function getImage(? string $size = 'thumbnail'): string
     {
         if (!has_post_thumbnail($this->getId())) {
             return false;
         }
 
         $image = get_post_thumbnail_id($this->getId());
-        $image = wp_get_attachment_image_src($image, $name, false);
+        $image = wp_get_attachment_image_src($image, $size, false);
 
         return $image[0] ?? false;
     }
