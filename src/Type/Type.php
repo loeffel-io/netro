@@ -28,7 +28,7 @@ abstract class Type implements TypeInterface
     protected $register = true;
 
     /** @var array */
-    protected $config = [];
+    private $config = [];
 
     /**
      * @param WP_Post $post

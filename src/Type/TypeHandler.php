@@ -15,7 +15,7 @@ class TypeHandler
     /** @var Type $type */
     protected $type;
 
-    /** @var string $path */
+    /** @var string $path Netro template path */
     protected $path;
 
     /**
@@ -47,6 +47,11 @@ class TypeHandler
         $this->type->setConfig(Yaml::parseFile($this->getConfigPath()));
     }
 
+    private function enableThumbnails()
+    {
+        add_theme_support('post-thumbnails');
+    }
+
     public function register()
     {
         if ($this->type->isRegister() === false) {
@@ -57,6 +62,7 @@ class TypeHandler
 
         add_action('init', function () {
             register_post_type($this->type->getPostType(), $this->type->getConfig());
+            $this->enableThumbnails();
         });
     }
 }
