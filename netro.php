@@ -11,6 +11,7 @@ License: MIT
 
 use \Dotenv\Dotenv;
 use \Netro\Type\TypeHandler;
+use \Composer\Autoload\ClassLoader;
 
 defined('ABSPATH') or die();
 
@@ -21,6 +22,7 @@ define('NETRO_TEMPLATE_SOURCE_PATH', NETRO_TEMPLATE_PATH . '/netro/');
 define('NETRO_ENV_PATH', NETRO_TEMPLATE_PATH . '/.env');
 
 // Setup autoloader
+/** @var ClassLoader $loader */
 $loader = require_once __DIR__ . '/vendor/autoload.php';
 $loader->addPsr4('Netro\\', [
     NETRO_TEMPLATE_SOURCE_PATH,
