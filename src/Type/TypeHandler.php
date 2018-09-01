@@ -65,5 +65,9 @@ class TypeHandler
             register_post_type($this->type->getPostType(), $this->type->getConfig());
             $this->enableThumbnails();
         });
+
+        if (method_exists($this->type, 'saved')) {
+            add_action('save_post', [$this->type, 'saved']);
+        }
     }
 }
