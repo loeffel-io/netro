@@ -41,7 +41,7 @@ class Image
     /**
      * @param int $id
      */
-    public function setId(int $id): void
+    public function update(int $id): void
     {
         $this->id = $id;
 

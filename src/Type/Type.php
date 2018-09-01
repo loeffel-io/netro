@@ -180,10 +180,10 @@ abstract class Type implements TypeInterface
      * @param int $thumbnailId
      * @return Type
      */
-    public function setImage(int $thumbnailId): Type
+    public function updateImage(int $thumbnailId): Type
     {
         $this->initImage();
-        $this->image->setId($thumbnailId);
+        $this->image->update($thumbnailId);
 
         return $this;
     }
