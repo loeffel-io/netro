@@ -30,3 +30,9 @@ $loader->addPsr4('Netro\\', [
 if (file_exists(NETRO_ENV_PATH)) {
     (new Dotenv(NETRO_TEMPLATE_PATH))->overload();
 }
+
+// Autowire types
+foreach (glob(NETRO_TEMPLATE_SOURCE_PATH . 'type/*.php') as $file) {
+    $class = '\\Netro\\Type\\' . basename($file, '.php');
+    $type = new $class;
+}
