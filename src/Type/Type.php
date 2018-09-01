@@ -24,6 +24,12 @@ abstract class Type implements TypeInterface
     /** @var string */
     protected $content;
 
+    /** @var bool */
+    protected $register = true;
+
+    /** @var array */
+    protected $config = [];
+
     /**
      * @param WP_Post $post
      * @return Type
@@ -115,6 +121,38 @@ abstract class Type implements TypeInterface
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRegister(): bool
+    {
+        return $this->register;
+    }
+
+    /**
+     * @param bool $register
+     */
+    protected function setRegister(bool $register): void
+    {
+        $this->register = $register;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig(): array
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param array $config
+     */
+    public function setConfig(array $config): void
+    {
+        $this->config = $config;
     }
 
     /**
