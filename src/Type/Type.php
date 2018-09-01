@@ -24,6 +24,9 @@ abstract class Type implements TypeInterface
     /** @var string */
     protected $content;
 
+    /** @var string */
+    protected $image;
+
     /** @var bool */
     protected $register = true;
 
@@ -40,12 +43,11 @@ abstract class Type implements TypeInterface
 
         /** @var Type $type */
         $type = new $class;
-        $type->setId($post->ID);
-        $type->setPostType($post->post_type);
-        $type->setTitle($post->post_title);
-        $type->setContent(apply_filters('the_content', $post->post_content));
 
-        return $type;
+        return $type->setId($post->ID)
+            ->setPostType($post->post_type)
+            ->setTitle($post->post_title)
+            ->setContent(apply_filters('the_content', $post->post_content));
     }
 
     /**
@@ -154,6 +156,30 @@ abstract class Type implements TypeInterface
     public function setConfig(array $config): void
     {
         $this->config = $config;
+    }
+
+    /**
+     * @param null|string $name
+     * @return string
+     */
+    public function getImage(? string $name = 'thumbnail'): string
+    {
+        if (!has_post_thumbnail($this->getId())) {
+            return false;
+        }
+
+        $image = get_post_thumbnail_id($this->getId());
+        $image = wp_get_attachment_image_src($image, $name, false);
+
+        return $image[0] ?? false;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
     }
 
     /**
