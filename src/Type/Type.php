@@ -25,6 +25,9 @@ abstract class Type implements TypeInterface
     /** @var string */
     protected $content;
 
+    /** @var string */
+    protected $status;
+
     /** @var Image */
     protected $image;
 
@@ -49,6 +52,7 @@ abstract class Type implements TypeInterface
             ->setPostType($post->post_type)
             ->initImage()
             ->setTitle($post->post_title)
+            ->setStatus($post->post_status)
             ->setContent(apply_filters('the_content', $post->post_content));
     }
 
@@ -162,6 +166,25 @@ abstract class Type implements TypeInterface
     public function setConfig(array $config): Type
     {
         $this->config = $config;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return Type
+     */
+    public function setStatus(string $status): Type
+    {
+        $this->status = $status;
 
         return $this;
     }
