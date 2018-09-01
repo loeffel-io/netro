@@ -277,16 +277,16 @@ abstract class Type implements TypeInterface
      */
     private function getPostArray(? bool $update = false): array
     {
+        if ($update) {
+            $array['ID'] = $this->getId();
+        }
+
         $array = [
             'post_type' => $this->getPostType(),
             'post_title' => $this->getTitle(),
             'post_content' => $this->getContent() ?? "",
             'post_status' => $this->getStatus(),
         ];
-
-        if ($update) {
-            $array['ID'] = $this->getId();
-        }
 
         return $array;
     }
