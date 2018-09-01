@@ -197,7 +197,7 @@ abstract class Type implements TypeInterface
             trigger_error("Type id is missing", E_USER_ERROR);
         }
 
-        if (empty($this->image) === true) {
+        if (!$this->image instanceof Image) {
             $this->image = new Image($this);
         }
 

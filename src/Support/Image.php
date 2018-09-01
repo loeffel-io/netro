@@ -44,6 +44,13 @@ class Image
     public function setId(int $id): void
     {
         $this->id = $id;
+
+        if (!$id) {
+            delete_post_thumbnail($this->type->getId());
+            return;
+        }
+
+        set_post_thumbnail($this->type->getId(), $id);
     }
 
     /**
@@ -67,5 +74,17 @@ class Image
         $image = wp_get_attachment_image_src($id, $size, false);
 
         return $image[0] ?? "";
+    }
+
+    /**
+     * @return array
+     */
+    public function getMeta(): array
+    {
+        if (!$id = $this->getId()) {
+            return [];
+        }
+
+        return wp_get_attachment_metadata($this->getId(), false);
     }
 }
