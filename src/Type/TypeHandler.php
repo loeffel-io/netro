@@ -38,7 +38,7 @@ class TypeHandler
             $classShortName = (new ReflectionClass($this->type))->getShortName();
             return $this->path . 'type/' . $classShortName . '.yml';
         } catch (ReflectionException $exception) {
-            die($exception->getMessage());
+            trigger_error($exception->getMessage(), E_USER_ERROR);
         }
     }
 
