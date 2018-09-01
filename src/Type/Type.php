@@ -2,6 +2,7 @@
 
 namespace Netro\Type;
 
+use Netro\Support\Image;
 use WP_Post;
 use WP_Query;
 use Exception;
@@ -24,7 +25,7 @@ abstract class Type implements TypeInterface
     /** @var string */
     protected $content;
 
-    /** @var string */
+    /** @var Image */
     protected $image;
 
     /** @var bool */
@@ -46,14 +47,15 @@ abstract class Type implements TypeInterface
 
         return $type->setId($post->ID)
             ->setPostType($post->post_type)
+            ->initImage()
             ->setTitle($post->post_title)
             ->setContent(apply_filters('the_content', $post->post_content));
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -89,9 +91,9 @@ abstract class Type implements TypeInterface
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -108,9 +110,9 @@ abstract class Type implements TypeInterface
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -136,50 +138,70 @@ abstract class Type implements TypeInterface
 
     /**
      * @param bool $register
+     * @return Type
      */
-    protected function setRegister(bool $register): void
+    protected function setRegister(bool $register): Type
     {
         $this->register = $register;
+
+        return $this;
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getConfig(): array
+    public function getConfig(): ?array
     {
         return $this->config;
     }
 
     /**
      * @param array $config
+     * @return Type
      */
-    public function setConfig(array $config): void
+    public function setConfig(array $config): Type
     {
         $this->config = $config;
+
+        return $this;
     }
 
     /**
-     * @param null|string $size
-     * @return string
+     * @return Image|null
      */
-    public function getImage(? string $size = 'thumbnail'): string
+    public function getImage(): ?Image
     {
-        if (!has_post_thumbnail($this->getId())) {
-            return false;
+        $this->initImage();
+
+        return $this->image;
+    }
+
+    /**
+     * @param int $thumbnailId
+     * @return Type
+     */
+    public function setImage(int $thumbnailId): Type
+    {
+        $this->initImage();
+        $this->image->setId($thumbnailId);
+
+        return $this;
+    }
+
+    /**
+     * @return Type
+     */
+    public function initImage(): Type
+    {
+        if (empty($this->id)) {
+            trigger_error("Type id is missing", E_USER_ERROR);
         }
 
-        $image = get_post_thumbnail_id($this->getId());
-        $image = wp_get_attachment_image_src($image, $size, false);
+        if (empty($this->image) === true) {
+            $this->image = new Image($this);
+        }
 
-        return $image[0] ?? false;
-    }
-
-    /**
-     * @param string $image
-     */
-    public function setImage(string $image): void
-    {
-        $this->image = $image;
+        return $this;
     }
 
     /**
@@ -242,6 +264,6 @@ abstract class Type implements TypeInterface
             throw new Exception($update->get_error_message());
         }
 
-        return $this;
+        return $this->find($this->getId());
     }
 }
