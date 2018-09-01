@@ -43,6 +43,7 @@ abstract class Type implements TypeInterface
         $type->setId($post->ID);
         $type->setPostType($post->post_type);
         $type->setTitle($post->post_title);
+        $type->setContent(apply_filters('the_content', $post->post_content));
 
         return $type;
     }
