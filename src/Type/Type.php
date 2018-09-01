@@ -171,9 +171,9 @@ abstract class Type implements TypeInterface
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -272,21 +272,66 @@ abstract class Type implements TypeInterface
     }
 
     /**
+     * @param bool $update
+     * @return array
+     */
+    private function getPostArray(? bool $update = false): array
+    {
+        $array = [
+            'post_type' => $this->getPostType(),
+            'post_title' => $this->getTitle(),
+            'post_content' => $this->getContent() ?? "",
+            'post_status' => $this->getStatus(),
+        ];
+
+        if ($update) {
+            $array['ID'] = $this->getId();
+        }
+
+        return $array;
+    }
+
+    /**
      * @return Type
      * @throws Exception
      */
     public function update(): Type
     {
-        $update = wp_update_post([
-            'ID' => $this->getId(),
-            'post_title' => $this->getTitle(),
-            'post_content' => $this->getContent(),
-        ], true);
+        $update = wp_update_post($this->getPostArray(true), true);
 
         if (is_wp_error($update)) {
             throw new Exception($update->get_error_message());
         }
 
         return $this->find($this->getId());
+    }
+
+    /**
+     * @return Type
+     * @throws Exception
+     */
+    public function save(): Type
+    {
+        $save = wp_insert_post($this->getPostArray(), true);
+
+        if (is_wp_error($save)) {
+            throw new Exception($save->get_error_message());
+        }
+
+        return $this->find($save);
+    }
+
+    /**
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        $delete = wp_delete_post($this->getId());
+
+        if ($delete instanceof WP_Post) {
+            return true;
+        }
+
+        return false;
     }
 }
