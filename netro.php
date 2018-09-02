@@ -12,6 +12,7 @@ License: MIT
 use \Dotenv\Dotenv;
 use \Netro\Type\TypeHandler;
 use \Composer\Autoload\ClassLoader;
+use \DI\Container;
 
 defined('ABSPATH') or die();
 
@@ -37,6 +38,6 @@ if (file_exists(NETRO_ENV_PATH)) {
 // Autowire types
 foreach (glob(NETRO_TEMPLATE_SOURCE_PATH . 'type/*.php') as $file) {
     $class = '\\Netro\\Type\\' . basename($file, '.php');
-    $typeHandler = new TypeHandler(new $class, NETRO_TEMPLATE_SOURCE_PATH);
+    $typeHandler = new TypeHandler(new $class, NETRO_TEMPLATE_SOURCE_PATH, new Container());
     $typeHandler->register();
 }

@@ -6,6 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 use ReflectionClass;
 use ReflectionException;
 use WP_Post;
+use DI\Container;
 
 /**
  * Class TypeHandler
@@ -19,15 +20,20 @@ class TypeHandler
     /** @var string $path Netro template path */
     protected $path;
 
+    /** @var Container $container */
+    protected $container;
+
     /**
      * TypeHandler constructor.
      * @param Type $type
      * @param string $path
+     * @param Container $container
      */
-    public function __construct(Type $type, string $path)
+    public function __construct(Type $type, string $path, Container $container)
     {
         $this->type = $type;
         $this->path = $path;
+        $this->container = $container;
     }
 
     /**
@@ -63,7 +69,7 @@ class TypeHandler
             return;
         }
 
-        call_user_func([$this->type, 'updated'], $this->type->find($id));
+        $this->container->call([$this->type, 'updated'], [$this->type->find($id)]);
     }
 
     /**
@@ -75,7 +81,7 @@ class TypeHandler
             return;
         }
 
-        call_user_func([$this->type, 'saved'], $this->type->find($id));
+        $this->container->call([$this->type, 'saved'], [$this->type->find($id)]);
     }
 
     private function enableEvents()
