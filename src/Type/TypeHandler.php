@@ -95,7 +95,8 @@ class TypeHandler
                 return;
             }
 
-            if (!post_exists($id)) {
+            if ($post->post_date_gmt === $post->post_modified_gmt) {
+                $this->fireSavedEvent($id);
                 return;
             }
 
