@@ -231,6 +231,17 @@ abstract class Type
     }
 
     /**
+     * @param array $posts
+     * @return array
+     */
+    private function mapPosts(array $posts): array
+    {
+        return array_map(function (WP_Post $post) {
+            return $this->new($post);
+        }, $posts);
+    }
+
+    /**
      * @param int $id
      * @return Type
      */
@@ -255,20 +266,15 @@ abstract class Type
             'post__in' => $ids,
         ]));
 
-        return array_map(function ($post) {
-            return $this->new($post);
-        }, $query->posts);
+        return $this->mapPosts($query->posts);
     }
 
     public function get(): array
     {
         $this->builder['post_type'] = $this->getPostType();
-
         $query = (new WP_Query($this->builder));
 
-        return array_map(function ($post) {
-            return $this->new($post);
-        }, $query->posts);
+        return $this->mapPosts($query->posts);
     }
 
     /**
@@ -345,19 +351,15 @@ abstract class Type
             'post_status' => get_post_stati(),
         ]));
 
-        return array_map(function ($post) {
-            return $this->new($post);
-        }, $query->posts);
+        return $this->mapPosts($query->posts);
     }
 
     /**
      * @param bool $update
      * @return array
      */
-    private
-    function getPostArray(
-        ? bool $update = false
-    ): array {
+    private function getPostArray(? bool $update = false): array
+    {
         $array = [
             'post_type' => $this->getPostType(),
             'post_title' => $this->getTitle(),
@@ -376,8 +378,7 @@ abstract class Type
      * @return Type
      * @throws Exception
      */
-    public
-    function update(): Type
+    public function update(): Type
     {
         $res = wp_update_post($this->getPostArray(true), true);
 
@@ -392,8 +393,7 @@ abstract class Type
      * @return Type
      * @throws Exception
      */
-    public
-    function save(): Type
+    public function save(): Type
     {
         $res = wp_insert_post($this->getPostArray(), true);
 
@@ -407,8 +407,7 @@ abstract class Type
     /**
      * @return bool
      */
-    public
-    function delete(): bool
+    public function delete(): bool
     {
         $delete = wp_delete_post($this->getId());
 

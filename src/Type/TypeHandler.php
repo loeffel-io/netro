@@ -86,7 +86,7 @@ class TypeHandler
 
     private function enableEvents()
     {
-        add_action('save_post', function (int $id, WP_Post $post, bool $update) {
+        add_action('save_post', function (int $id, $post, bool $update) {
             if ($post->post_type !== $this->type->getPostType()) {
                 return;
             }
