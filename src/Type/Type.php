@@ -299,6 +299,18 @@ abstract class Type
     }
 
     /**
+     * @param int $limit
+     * @return array
+     */
+    public function paginate(int $limit): array
+    {
+        $this->builder['posts_per_page'] = $limit;
+        $this->builder['paged'] = get_query_var('paged') ? get_query_var('paged') : 1;
+
+        return $this->get();
+    }
+
+    /**
      * @param string $title
      * @return Type
      */
