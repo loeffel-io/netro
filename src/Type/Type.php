@@ -277,7 +277,22 @@ abstract class Type
      */
     public function whereStatus(string $status): Type
     {
+        if (empty(get_post_stati()[$status])) {
+            trigger_error('Invalid status', E_USER_ERROR);
+        }
+
         $this->builder['post_status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * @param string $title
+     * @return Type
+     */
+    public function whereTitle(string $title): Type
+    {
+        $this->builder['title'] = $title;
 
         return $this;
     }
