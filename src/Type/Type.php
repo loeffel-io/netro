@@ -297,10 +297,10 @@ abstract class Type
      */
     public function update(): Type
     {
-        $update = wp_update_post($this->getPostArray(true), true);
+        $res = wp_update_post($this->getPostArray(true), true);
 
-        if (is_wp_error($update)) {
-            throw new Exception($update->get_error_message());
+        if (is_wp_error($res)) {
+            throw new Exception($res->get_error_message());
         }
 
         return $this->find($this->getId());
@@ -312,13 +312,13 @@ abstract class Type
      */
     public function save(): Type
     {
-        $save = wp_insert_post($this->getPostArray(), true);
+        $res = wp_insert_post($this->getPostArray(), true);
 
-        if (is_wp_error($save)) {
-            throw new Exception($save->get_error_message());
+        if (is_wp_error($res)) {
+            throw new Exception($res->get_error_message());
         }
 
-        return $this->find($save);
+        return $this->find($res);
     }
 
     /**
