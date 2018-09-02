@@ -81,10 +81,6 @@ class TypeHandler
             return;
         }
 
-        if (!post_exists($id)) {
-            return;
-        }
-
         $this->container->call([$this->type, 'saved'], [$this->type->find($id)]);
     }
 
@@ -92,6 +88,14 @@ class TypeHandler
     {
         add_action('save_post', function (int $id, WP_Post $post, bool $update) {
             if ($post->post_type !== $this->type->getPostType()) {
+                return;
+            }
+
+            if ($post->post_status === 'auto-draft') {
+                return;
+            }
+
+            if (!post_exists($id)) {
                 return;
             }
 
