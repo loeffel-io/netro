@@ -38,6 +38,6 @@ if (file_exists(NETRO_ENV_PATH)) {
 // Autowire types
 foreach (glob(NETRO_TEMPLATE_SOURCE_PATH . 'type/*.php') as $file) {
     $class = '\\Netro\\Type\\' . basename($file, '.php');
-    $typeHandler = new TypeHandler(new $class, NETRO_TEMPLATE_SOURCE_PATH, new Container());
+    $typeHandler = new TypeHandler(new $class, NETRO_TEMPLATE_SOURCE_PATH);
     $typeHandler->register();
 }

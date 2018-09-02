@@ -358,7 +358,7 @@ abstract class Type
      * @param bool $update
      * @return array
      */
-    private function getPostArray(? bool $update = false): array
+    private function getPostArray(bool $update): array
     {
         $array = [
             'post_type' => $this->getPostType(),
@@ -367,7 +367,7 @@ abstract class Type
             'post_status' => $this->getStatus(),
         ];
 
-        if ($update) {
+        if ($update === true) {
             $array['ID'] = $this->getId();
         }
 
@@ -395,7 +395,7 @@ abstract class Type
      */
     public function save(): Type
     {
-        $res = wp_insert_post($this->getPostArray(), true);
+        $res = wp_insert_post($this->getPostArray(false), true);
 
         if (is_wp_error($res)) {
             throw new Exception($res->get_error_message());

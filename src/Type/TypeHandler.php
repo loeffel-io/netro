@@ -2,10 +2,10 @@
 
 namespace Netro\Type;
 
+use WP_Post;
 use Symfony\Component\Yaml\Yaml;
 use ReflectionClass;
 use ReflectionException;
-use WP_Post;
 use DI\Container;
 
 /**
@@ -23,17 +23,20 @@ class TypeHandler
     /** @var Container $container */
     protected $container;
 
+    /** @var Yaml $yaml */
+    protected $yaml;
+
     /**
      * TypeHandler constructor.
      * @param Type $type
      * @param string $path
-     * @param Container $container
      */
-    public function __construct(Type $type, string $path, Container $container)
+    public function __construct(Type $type, string $path)
     {
         $this->type = $type;
         $this->path = $path;
-        $this->container = $container;
+        $this->container = new Container();
+        $this->yaml = new Yaml();
     }
 
     /**
@@ -52,7 +55,7 @@ class TypeHandler
 
     private function getConfig()
     {
-        $this->type->setConfig(Yaml::parseFile($this->getConfigPath()));
+        $this->type->setConfig($this->yaml->parseFile($this->getConfigPath()));
     }
 
     private function enableThumbnails()
@@ -86,7 +89,7 @@ class TypeHandler
 
     private function enableEvents()
     {
-        add_action('save_post', function (int $id, $post, bool $update) {
+        add_action('save_post', function (int $id, WP_Post $post, bool $update) {
             if ($post->post_type !== $this->type->getPostType()) {
                 return;
             }
