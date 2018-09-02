@@ -37,6 +37,9 @@ abstract class Type
     /** @var array */
     private $config = [];
 
+    /** @var array $builder */
+    private $builder = [];
+
     /**
      * @param WP_Post $post
      * @return Type
@@ -257,10 +260,35 @@ abstract class Type
         }, $query->posts);
     }
 
+    public function get(): array
+    {
+        $this->builder['post_type'] = $this->getPostType();
+
+        $query = (new WP_Query($this->builder));
+
+        return array_map(function ($post) {
+            return $this->new($post);
+        }, $query->posts);
+    }
+
+    /**
+     * @param string $name
+     * @param null|string $order
+     * @return Type
+     */
+    public function orderBy(string $name, ? string $order = 'DESC'): Type
+    {
+        $this->builder['orderby'] = $name;
+        $this->builder['order'] = $order;
+
+        return $this;
+    }
+
     /**
      * @return array
      */
-    public function all(): array
+    public
+    function all(): array
     {
         $query = (new WP_Query([
             'post_type' => $this->getPostType(),
@@ -275,8 +303,10 @@ abstract class Type
      * @param bool $update
      * @return array
      */
-    private function getPostArray(? bool $update = false): array
-    {
+    private
+    function getPostArray(
+        ? bool $update = false
+    ): array {
         $array = [
             'post_type' => $this->getPostType(),
             'post_title' => $this->getTitle(),
@@ -295,7 +325,8 @@ abstract class Type
      * @return Type
      * @throws Exception
      */
-    public function update(): Type
+    public
+    function update(): Type
     {
         $res = wp_update_post($this->getPostArray(true), true);
 
@@ -310,7 +341,8 @@ abstract class Type
      * @return Type
      * @throws Exception
      */
-    public function save(): Type
+    public
+    function save(): Type
     {
         $res = wp_insert_post($this->getPostArray(), true);
 
@@ -324,7 +356,8 @@ abstract class Type
     /**
      * @return bool
      */
-    public function delete(): bool
+    public
+    function delete(): bool
     {
         $delete = wp_delete_post($this->getId());
 
