@@ -81,12 +81,20 @@ class TypeHandler
             return;
         }
 
+        if (!post_exists($id)) {
+            return;
+        }
+
         $this->container->call([$this->type, 'saved'], [$this->type->find($id)]);
     }
 
     private function enableEvents()
     {
         add_action('save_post', function (int $id, WP_Post $post, bool $update) {
+            if ($post->post_type !== $this->type->getPostType()) {
+                return;
+            }
+
             $update ? $this->fireUpdatedEvent($id) : $this->fireSavedEvent($id);
             unset($post);
         }, 10, 3);
