@@ -272,6 +272,17 @@ abstract class Type
     }
 
     /**
+     * @param string $status
+     * @return Type
+     */
+    public function whereStatus(string $status): Type
+    {
+        $this->builder['post_status'] = $status;
+
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @param null|string $order
      * @return Type
@@ -287,11 +298,12 @@ abstract class Type
     /**
      * @return array
      */
-    public
-    function all(): array
+    public function all(): array
     {
         $query = (new WP_Query([
             'post_type' => $this->getPostType(),
+            'posts_per_page' => -1,
+            'post_status' => get_post_stati(),
         ]));
 
         return array_map(function ($post) {
