@@ -286,6 +286,13 @@ abstract class Type
         return $this;
     }
 
+    public function limit(int $limit): Type
+    {
+        $this->builder['posts_per_page'] = $limit;
+
+        return $this;
+    }
+
     /**
      * @param string $title
      * @return Type
