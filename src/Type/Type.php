@@ -11,7 +11,7 @@ use Exception;
  * Class Type
  * @package Netro\Type
  */
-abstract class Type implements TypeInterface
+abstract class Type
 {
     /** @var int */
     protected $id;
