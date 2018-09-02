@@ -95,13 +95,12 @@ class TypeHandler
                 return;
             }
 
-            if ($post->post_date_gmt === $post->post_modified_gmt) {
+            if ($post->post_date_gmt === $post->post_modified_gmt || $update === false) {
                 $this->fireSavedEvent($id);
                 return;
             }
 
-            $update ? $this->fireUpdatedEvent($id) : $this->fireSavedEvent($id);
-            unset($post);
+            $this->fireUpdatedEvent($id);
         }, 10, 3);
     }
 
