@@ -1,14 +1,6 @@
 parameters:
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
-        - '#Function get_template_directory_uri not found\.#'
-        - '#Function wp_mail not found\.#'
-        - '#Instantiated class WP_Query not found\.#'
-        - '#Access to property \$posts on an unknown class WP_Query\.#'
-        - '#Access to property \$post on an unknown class WP_Query\.#'
-        - '#Function wp_update_post not found\.#'
-        - '#Function is_wp_error not found\.#'
-        - '#Access to property \$post_title on an unknown class WP_Post\.#'
-        - '#Access to property \$post_type on an unknown class WP_Post\.#'
-        - '#Access to property \$ID on an unknown class WP_Post\.#'
-        - '#Parameter \$post of method Netro\\Type\\Type::new\(\) has invalid typehint type WP_Post\.#'
+        - '#(.*)?[cC]{1}lass (WP_Query|WP_Post) not found\.#'
+        - '#.* on an unknown class (WP_Query|WP_Post)\.#'
+        - '#Function [a-z\_]+ not found\.#'
