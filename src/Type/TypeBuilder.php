@@ -2,8 +2,6 @@
 
 namespace Netro\Type;
 
-use WP_Query;
-
 /**
  * Class TypeBuilder
  * @package Netro\Type
