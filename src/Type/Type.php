@@ -435,7 +435,12 @@ abstract class Type implements JsonSerializable
     {
         return [
             'id' => $this->getId(),
+            'postType' => $this->getPostType(),
             'title' => $this->getTitle(),
+            'content' => esc_html($this->getContent()),
+            'createdAt' => $this->getCreatedAt(),
+            'modifiedAt' => $this->getModifiedAt(),
+            'image' => $this->getImage(),
         ];
     }
 

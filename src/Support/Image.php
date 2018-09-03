@@ -3,12 +3,13 @@
 namespace Netro\Support;
 
 use Netro\Type\Type;
+use JsonSerializable;
 
 /**
  * Class Image
  * @package Netro\Support
  */
-class Image
+class Image implements JsonSerializable
 {
     /** @var int */
     protected $id;
@@ -65,7 +66,7 @@ class Image
      * @param null|string $size
      * @return string
      */
-    public function getPath(? string $size = 'thumbnail'): string
+    public function getPath(? string $size = 'full'): string
     {
         if (!$id = $this->getId()) {
             return "";
@@ -86,5 +87,25 @@ class Image
         }
 
         return wp_get_attachment_metadata($this->getId(), false);
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'path' => $this->getPath(),
+            'meta' => $this->getMeta(),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->jsonSerialize());
     }
 }
