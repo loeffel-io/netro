@@ -60,6 +60,14 @@ class TypeHandler
 
     private function enableThumbnails()
     {
+        if (empty($this->type->getConfig()['supports']) === true) {
+            return;
+        }
+
+        if (in_array('thumbnail', $this->type->getConfig()['supports']) === false) {
+            return;
+        }
+
         add_theme_support('post-thumbnails');
     }
 
