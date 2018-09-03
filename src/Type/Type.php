@@ -2,16 +2,18 @@
 
 namespace Netro\Type;
 
+use Carbon\Carbon;
 use Netro\Support\Image;
 use WP_Post;
 use WP_Query;
 use Exception;
+use JsonSerializable;
 
 /**
  * Class Type
  * @package Netro\Type
  */
-abstract class Type
+abstract class Type implements JsonSerializable
 {
     /** @var int */
     protected $id;
@@ -27,6 +29,12 @@ abstract class Type
 
     /** @var string */
     protected $status;
+
+    /** @var Carbon */
+    protected $createdAt;
+
+    /** @var Carbon */
+    protected $modifiedAt;
 
     /** @var Image */
     protected $image;
@@ -46,16 +54,18 @@ abstract class Type
      */
     private function new(WP_Post $post): Type
     {
-        $class = get_called_class();
-
         /** @var Type $type */
+        $class = get_called_class();
         $type = new $class;
+        $carbon = new Carbon();
 
         return $type->setId($post->ID)
             ->setPostType($post->post_type)
             ->initImage()
             ->setTitle($post->post_title)
             ->setStatus($post->post_status)
+            ->setCreatedAt($carbon::parse($post->post_date_gmt))
+            ->setModifiedAt($carbon::parse($post->post_modified_gmt))
             ->setContent(apply_filters('the_content', $post->post_content));
     }
 
@@ -283,7 +293,7 @@ abstract class Type
      */
     public function whereStatus(string $status): Type
     {
-        if (empty(get_post_stati()[$status])) {
+        if (empty(get_post_stati()[$status]) === true) {
             trigger_error('Invalid status', E_USER_ERROR);
         }
 
@@ -416,5 +426,62 @@ abstract class Type
         }
 
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->jsonSerialize());
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getCreatedAt(): Carbon
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param Carbon $createdAt
+     * @return Type
+     */
+    public function setCreatedAt(Carbon $createdAt): Type
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getModifiedAt(): Carbon
+    {
+        return $this->modifiedAt;
+    }
+
+    /**
+     * @param Carbon $modifiedAt
+     * @return Type
+     */
+    public function setModifiedAt(Carbon $modifiedAt): Type
+    {
+        $this->modifiedAt = $modifiedAt;
+
+        return $this;
     }
 }
