@@ -45,9 +45,6 @@ abstract class Type implements JsonSerializable
     /** @var array */
     private $config = [];
 
-    /** @var array $builder */
-    private $builder = [];
-
     /**
      * @param WP_Post $post
      * @return Type
@@ -67,6 +64,17 @@ abstract class Type implements JsonSerializable
             ->setCreatedAt($carbon::parse($post->post_date_gmt))
             ->setModifiedAt($carbon::parse($post->post_modified_gmt))
             ->setContent(apply_filters('the_content', $post->post_content));
+    }
+
+    /**
+     * @param TypeBuilder $typeBuilder
+     * @return array
+     */
+    public function getByBuilder(TypeBuilder $typeBuilder): array
+    {
+        $query = (new WP_Query($typeBuilder->getBuilder()));
+
+        return $this->mapPosts($query->posts);
     }
 
     /**
@@ -203,6 +211,44 @@ abstract class Type implements JsonSerializable
     }
 
     /**
+     * @return Carbon
+     */
+    public function getCreatedAt(): Carbon
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param Carbon $createdAt
+     * @return Type
+     */
+    public function setCreatedAt(Carbon $createdAt): Type
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getModifiedAt(): Carbon
+    {
+        return $this->modifiedAt;
+    }
+
+    /**
+     * @param Carbon $modifiedAt
+     * @return Type
+     */
+    public function setModifiedAt(Carbon $modifiedAt): Type
+    {
+        $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    /**
      * @return Image|null
      */
     public function getImage(): ?Image
@@ -277,77 +323,6 @@ abstract class Type implements JsonSerializable
         ]));
 
         return $this->mapPosts($query->posts);
-    }
-
-    public function get(): array
-    {
-        $this->builder['post_type'] = $this->getPostType();
-        $query = (new WP_Query($this->builder));
-
-        return $this->mapPosts($query->posts);
-    }
-
-    /**
-     * @param string $status
-     * @return Type
-     */
-    public function whereStatus(string $status): Type
-    {
-        if (empty(get_post_stati()[$status]) === true) {
-            trigger_error('Invalid status', E_USER_ERROR);
-        }
-
-        $this->builder['post_status'] = $status;
-
-        return $this;
-    }
-
-    /**
-     * @param int $limit
-     * @return Type
-     */
-    public function limit(int $limit): Type
-    {
-        $this->builder['posts_per_page'] = $limit;
-        $this->builder['paged'] = 1;
-
-        return $this;
-    }
-
-    /**
-     * @param int $limit
-     * @return array
-     */
-    public function paginate(int $limit): array
-    {
-        $this->builder['posts_per_page'] = $limit;
-        $this->builder['paged'] = get_query_var('paged') ? get_query_var('paged') : 1;
-
-        return $this->get();
-    }
-
-    /**
-     * @param string $title
-     * @return Type
-     */
-    public function whereTitle(string $title): Type
-    {
-        $this->builder['title'] = $title;
-
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param null|string $order
-     * @return Type
-     */
-    public function orderBy(string $name, ? string $order = 'DESC'): Type
-    {
-        $this->builder['orderby'] = $name;
-        $this->builder['order'] = $order;
-
-        return $this;
     }
 
     /**
@@ -453,40 +428,10 @@ abstract class Type implements JsonSerializable
     }
 
     /**
-     * @return Carbon
+     * @return TypeBuilder
      */
-    public function getCreatedAt(): Carbon
+    public function builder(): TypeBuilder
     {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param Carbon $createdAt
-     * @return Type
-     */
-    public function setCreatedAt(Carbon $createdAt): Type
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Carbon
-     */
-    public function getModifiedAt(): Carbon
-    {
-        return $this->modifiedAt;
-    }
-
-    /**
-     * @param Carbon $modifiedAt
-     * @return Type
-     */
-    public function setModifiedAt(Carbon $modifiedAt): Type
-    {
-        $this->modifiedAt = $modifiedAt;
-
-        return $this;
+        return new TypeBuilder($this);
     }
 }
