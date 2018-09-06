@@ -7,8 +7,8 @@ use Netro\Facade\Facade;
 /**
  * Class Type
  * @package Netro\Facade
- * @method static find(int $id)
- * @method static whereTitle(string $title)
+ * @method static \Netro\Type\Type find(int $id)
+ * @method static \Netro\Type\Type whereTitle(string $title)
  */
 abstract class Type extends Facade
 {
