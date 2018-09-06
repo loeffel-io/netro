@@ -12,7 +12,6 @@ License: MIT
 use \Dotenv\Dotenv;
 use \Netro\Type\TypeHandler;
 use \Composer\Autoload\ClassLoader;
-use \DI\Container;
 
 defined('ABSPATH') or die();
 

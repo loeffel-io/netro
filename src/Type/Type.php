@@ -45,6 +45,9 @@ abstract class Type implements JsonSerializable
     /** @var array */
     private $config = [];
 
+    /** @var array */
+    private $builder = [];
+
     /**
      * @param WP_Post $post
      * @return Type
@@ -64,17 +67,6 @@ abstract class Type implements JsonSerializable
             ->setCreatedAt($carbon::parse($post->post_date_gmt))
             ->setModifiedAt($carbon::parse($post->post_modified_gmt))
             ->setContent(apply_filters('the_content', $post->post_content));
-    }
-
-    /**
-     * @param TypeBuilder $typeBuilder
-     * @return array
-     */
-    public function getByBuilder(TypeBuilder $typeBuilder): array
-    {
-        $query = (new WP_Query($typeBuilder->getBuilder()));
-
-        return $this->mapPosts($query->posts);
     }
 
     /**
@@ -298,48 +290,6 @@ abstract class Type implements JsonSerializable
     }
 
     /**
-     * @param int $id
-     * @return Type
-     */
-    public function find(int $id): Type
-    {
-        $query = (new WP_Query([
-            'post_type' => $this->getPostType(),
-            'p' => $id,
-        ]));
-
-        return $this->new($query->post);
-    }
-
-    /**
-     * @param array $ids
-     * @return array
-     */
-    public function findMany(array $ids): array
-    {
-        $query = (new WP_Query([
-            'post_type' => $this->getPostType(),
-            'post__in' => $ids,
-        ]));
-
-        return $this->mapPosts($query->posts);
-    }
-
-    /**
-     * @return array
-     */
-    public function all(): array
-    {
-        $query = (new WP_Query([
-            'post_type' => $this->getPostType(),
-            'posts_per_page' => -1,
-            'post_status' => get_post_stati(),
-        ]));
-
-        return $this->mapPosts($query->posts);
-    }
-
-    /**
      * @param bool $update
      * @return array
      */
@@ -428,10 +378,118 @@ abstract class Type implements JsonSerializable
     }
 
     /**
-     * @return TypeBuilder
+     * @return array
      */
-    public function builder(): TypeBuilder
+    public function get(): array
     {
-        return new TypeBuilder($this);
+        $this->builder['post_type'] = $this->getPostType();
+        $query = (new WP_Query($this->builder));
+
+        return $this->mapPosts($query->posts);
+    }
+
+    /**
+     * @param string $status
+     * @return Type
+     */
+    public function whereStatus(string $status): Type
+    {
+        if (empty(get_post_stati()[$status]) === true) {
+            trigger_error('Invalid status', E_USER_ERROR);
+        }
+
+        $this->builder['post_status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * @param int $limit
+     * @return Type
+     */
+    public function limit(int $limit): Type
+    {
+        $this->builder['posts_per_page'] = $limit;
+        $this->builder['paged'] = 1;
+
+        return $this;
+    }
+
+    /**
+     * @param int $limit
+     * @return array
+     */
+    public function paginate(int $limit): array
+    {
+        $this->builder['posts_per_page'] = $limit;
+        $this->builder['paged'] = get_query_var('paged') ? get_query_var('paged') : 1;
+
+        return $this->get();
+    }
+
+    /**
+     * @param string $title
+     * @return Type
+     */
+    public function whereTitle(string $title): Type
+    {
+        $this->builder['title'] = $title;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param null|string $order
+     * @return Type
+     */
+    public function orderBy(string $name, ? string $order = 'DESC'): Type
+    {
+        $this->builder['orderby'] = $name;
+        $this->builder['order'] = $order;
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @return Type
+     */
+    public function find(int $id): Type
+    {
+        $query = (new WP_Query([
+            'post_type' => $this->getPostType(),
+            'p' => $id,
+        ]));
+
+        return $this->new($query->post);
+    }
+
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function findMany(array $ids): array
+    {
+        $query = (new WP_Query([
+            'post_type' => $this->getPostType(),
+            'post__in' => $ids,
+        ]));
+
+        return $this->mapPosts($query->posts);
+    }
+
+    /**
+     * @return array
+     */
+    public function all(): array
+    {
+        $query = (new WP_Query([
+            'post_type' => $this->getPostType(),
+            'posts_per_page' => -1,
+            'post_status' => get_post_stati(),
+        ]));
+
+        return $this->mapPosts($query->posts);
     }
 }
