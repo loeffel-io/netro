@@ -91,8 +91,7 @@ class Mail
      */
     public function send(): bool
     {
-        // Add from to header
-        if (!empty($this->from)) {
+        if (empty($this->from) === false) {
             $this->headers[] = $this->from;
         }
 
