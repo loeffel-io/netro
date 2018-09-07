@@ -12,16 +12,13 @@ use \DI\NotFoundException;
  */
 abstract class Facade
 {
-    /** @var mixed */
-    private static $instance;
+    /** @var array */
+    private static $instances;
 
     /**
      * @return string
      */
-    protected static function getFacadeAccessor(): string
-    {
-        return "";
-    }
+    abstract protected static function getFacadeAccessor(): string;
 
     /**
      * @return mixed|null
@@ -30,13 +27,15 @@ abstract class Facade
      */
     private static function getInstance()
     {
-        if (!class_exists(static::getFacadeAccessor())) {
+        $accessor = static::getFacadeAccessor();
+
+        if (!class_exists($accessor)) {
             return null;
         }
 
         $container = new Container();
 
-        return $container->make(static::getFacadeAccessor());
+        return $container->make($accessor);
     }
 
     /**
@@ -48,10 +47,12 @@ abstract class Facade
      */
     public static function __callStatic(string $method, array $args)
     {
-        if (!self::$instance) {
-            self::$instance = static::getInstance();
+        $accessor = static::getFacadeAccessor();
+
+        if (empty(self::$instances[$accessor]) === true) {
+            self::$instances[$accessor] = static::getInstance();
         }
 
-        return self::$instance->$method(...$args);
+        return self::$instances[$accessor]->$method(...$args);
     }
 }
