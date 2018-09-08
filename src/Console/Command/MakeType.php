@@ -47,6 +47,29 @@ class MakeType extends Console
     }
 
     /**
+     * @param string $filename
+     * @return bool
+     */
+    private function fileExists(string $filename): bool
+    {
+        return $this->filesystem->exists($filename);
+    }
+
+    /**
+     * @param string $name
+     * @param string $filename
+     * @return string
+     */
+    private function createClassContent(string $name, string $filename): string
+    {
+        $content = file_get_contents($filename);
+        $content = str_replace('%class%', ucfirst($name), $content);
+        $content = str_replace('%postType%', lcfirst($name), $content);
+
+        return $content;
+    }
+
+    /**
      * @param string $name
      */
     private function createClass(string $name)
@@ -54,19 +77,15 @@ class MakeType extends Console
         $filename = $this->getTypePath() . $name . '.php';
         $distFilename = NETRO_PLUGIN_PATH . 'resources/templates/type/type.php.dist';
 
-        if ($this->filesystem->exists($filename)) {
+        if ($this->fileExists($filename)) {
             return;
         }
 
-        if ($this->filesystem->exists($distFilename) === false) {
+        if ($this->fileExists($distFilename) === false) {
             return;
         }
 
-        $content = file_get_contents($distFilename);
-        $content = str_replace('%class%', ucfirst($name), $content);
-        $content = str_replace('%postType%', lcfirst($name), $content);
-
-        $this->filesystem->dumpFile($filename, $content);
+        $this->filesystem->dumpFile($filename, $this->createClassContent($name, $distFilename));
     }
 
     public function run()
