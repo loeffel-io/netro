@@ -36,27 +36,14 @@ class MakeCommand extends Console
     /**
      * @return string
      */
-    private function getConsolePath(): string
-    {
-        return NETRO_TEMPLATE_SOURCE_PATH . 'Console/';
-    }
-
-    /**
-     * @return string
-     */
     private function getCommandPath(): string
     {
-        return $this->getConsolePath() . 'Command/';
+        return NETRO_TEMPLATE_SOURCE_PATH . 'Console/' . 'Command/';
     }
 
     private function createCommandDirectory()
     {
         $this->filesystem->mkdir($this->getCommandPath());
-    }
-
-    private function createConsoleDirectory()
-    {
-        $this->filesystem->mkdir($this->getConsolePath());
     }
 
     /**
@@ -104,7 +91,6 @@ class MakeCommand extends Console
     {
         $name = $this->arguments()[0];
 
-        $this->createConsoleDirectory();
         $this->createCommandDirectory();
         $this->createCommand($name);
     }
