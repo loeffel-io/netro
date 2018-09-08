@@ -61,6 +61,14 @@ abstract class Console
     }
 
     /**
+     * @param string $message
+     */
+    public function info(string $message)
+    {
+        $this->wpCli::line($message);
+    }
+
+    /**
      * @param array $errors
      */
     public function errors(array $errors)

@@ -1,0 +1,8 @@
+<?php
+
+namespace Netro\Type;
+
+class %class% extends Type
+{
+    protected $postType = "%postType%";
+}
