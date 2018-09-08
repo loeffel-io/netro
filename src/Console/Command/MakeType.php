@@ -10,9 +10,9 @@ use Netro\Console\Console;
  */
 class MakeType extends Console
 {
-    public $command = 'make:type';
+    public $command = 'make:type {name}';
 
-    public $description = 'Create type specific files';
+    public $description = 'Make type files';
 
     public function run()
     {

@@ -17,6 +17,9 @@ abstract class Console
     /** @var array */
     private $args = [];
 
+    /** @var array */
+    private $namedArgs = [];
+
     /** @var string */
     public $command = "";
 
@@ -28,12 +31,14 @@ abstract class Console
 
     /**
      * Console constructor.
-     * @param array $args
      * @param WP_CLI $wpCli
+     * @param array $args
+     * @param array $namedArgs
      */
-    public function __construct(WP_CLI $wpCli, array $args)
+    public function __construct(WP_CLI $wpCli, array $args, array $namedArgs)
     {
         $this->args = $args;
+        $this->namedArgs = $namedArgs;
         $this->wpCli = $wpCli;
     }
 
@@ -56,10 +61,39 @@ abstract class Console
     }
 
     /**
+     * @param array $errors
+     */
+    public function errors(array $errors)
+    {
+        $this->wpCli::error_multi_line($errors);
+    }
+
+    /**
      * @return array
      */
     public function arguments(): array
     {
         return $this->args;
+    }
+
+    /**
+     * @return array
+     */
+    public function namedArguments(): array
+    {
+        return $this->namedArgs;
+    }
+
+    /**
+     * @param string $name
+     * @return null|string
+     */
+    public function argument(string $name): ?string
+    {
+        if (isset($this->namedArguments()[$name]) === true) {
+            return $this->namedArguments()[$name];
+        }
+
+        return null;
     }
 }

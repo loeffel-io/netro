@@ -57,7 +57,7 @@ class ConsoleHandler implements HandlerInterface
      */
     private function parseCommand(string $command): array
     {
-        preg_match("/([a-zA-Z\:\_\-\=\?]+)+/", $command, $matches);
+        preg_match_all("/[a-zA-Z\:\_\-\=\?]+/", $command, $matches);
 
         return $matches;
     }
@@ -68,8 +68,11 @@ class ConsoleHandler implements HandlerInterface
      */
     private function commandCallback(string $class): Closure
     {
-        return function (array $args) use ($class) {
-            $this->container->call([$this->container->make($class, ['args' => $args]), 'run']);
+        return function (array $args, array $namedArgs) use ($class) {
+            $this->container->call([
+                $this->container->make($class, ['args' => $args, 'namedArgs' => $namedArgs]),
+                'run'
+            ]);
         };
     }
 
@@ -90,7 +93,104 @@ class ConsoleHandler implements HandlerInterface
      */
     private function getCommandName(array $matches): string
     {
-        return $matches[0];
+        return $matches[0][0];
+    }
+
+    /**
+     * @param array $optionMatch
+     * @return string
+     */
+    private function parseSynopsisType(array $optionMatch): string
+    {
+        if (empty($optionMatch[1]) === false && $optionMatch[1] === '--') {
+            return 'assoc';
+        }
+
+        return 'positional';
+    }
+
+    /**
+     * @param array $optionMatch
+     * @return bool
+     */
+    private function parseSynopsisOptional(array $optionMatch): bool
+    {
+        if (empty($optionMatch[3]) === false) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param array $optionMatch
+     * @return string
+     */
+    private function parseSynopsisName(array $optionMatch): string
+    {
+        if (empty($optionMatch[2]) === false) {
+            return $optionMatch[2];
+        }
+
+        return '';
+    }
+
+    /**
+     * @param array $optionMatch
+     * @return null|string
+     */
+    private function parseSynopsisDefault(array $optionMatch): ?string
+    {
+        if (empty($optionMatch[4]) === false && $optionMatch[4] === '=' && empty($optionMatch[5]) === false) {
+            return $optionMatch[5];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array $synopsis
+     */
+    private function parseSynopsisSpecial(array &$synopsis)
+    {
+        if ($synopsis['type'] !== 'assoc') {
+            return;
+        }
+
+        if ($synopsis['default'] === null) {
+            $synopsis['type'] = 'flag';
+            $synopsis['optional'] = true;
+            return;
+        }
+
+        if (empty($synopsis['default']) === false) {
+            $synopsis['optional'] = true;
+            return;
+        }
+    }
+
+    /**
+     * @param array $optionMatch
+     * @return array
+     */
+    private function parseSynopsis(array $optionMatch): array
+    {
+        // --
+        $synopsis['type'] = $this->parseSynopsisType($optionMatch);
+
+        // name
+        $synopsis['name'] = $this->parseSynopsisName($optionMatch);
+
+        // optional
+        $synopsis['optional'] = (string)$this->parseSynopsisOptional($optionMatch);
+
+        // default
+        $synopsis['default'] = $this->parseSynopsisDefault($optionMatch);
+
+        // flag (special)
+        $this->parseSynopsisSpecial($synopsis);
+
+        return $synopsis;
     }
 
     /**
@@ -99,11 +199,25 @@ class ConsoleHandler implements HandlerInterface
      */
     private function getCommandSynopsis(array $matches): array
     {
+        $synopsis = [];
+
         if (empty($matches) === true || count($matches) === 1) {
-            return [];
+            return $synopsis;
         }
 
-        return [];
+        foreach ($matches as $index => $match) {
+            if ($index === 0) {
+                continue;
+            }
+
+            if (preg_match("/^([\-]{2})?([a-zA-Z]+)(?:(\?)|([\=]{1})([a-zA-Z]+))?/", $match, $optionMatch) === false) {
+                continue;
+            }
+
+            $synopsis[] = $this->parseSynopsis($optionMatch);
+        }
+
+        return $synopsis;
     }
 
     /**
@@ -116,7 +230,7 @@ class ConsoleHandler implements HandlerInterface
         return [
             'shortdesc' => $defaultProperties['description'],
             'when' => $defaultProperties['when'],
-            'synopsis' => $this->getCommandSynopsis($commandMatches),
+            'synopsis' => $this->getCommandSynopsis($commandMatches[0]),
         ];
     }
 
