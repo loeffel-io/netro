@@ -1,0 +1,16 @@
+<?php
+
+namespace Netro\Console\Command;
+
+use Netro\Console\Console;
+
+class %class% extends Console
+{
+    public $command = '';
+
+    public $description = '';
+
+    public function run()
+    {
+    }
+}

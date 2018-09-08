@@ -51,7 +51,7 @@ class MakeType extends Console
 
     private function createTypeDirectory()
     {
-        $this->filesystem->mkdir($this->getTypePath(), 644);
+        $this->filesystem->mkdir($this->getTypePath());
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Netro\Console;
 
 use DI\Container;
+use Netro\Console\Command\MakeCommand;
 use Netro\Console\Command\MakeType;
 use Netro\HandlerInterface;
 use WP_CLI;
@@ -20,6 +21,7 @@ class ConsoleHandler implements HandlerInterface
     /** @var array */
     protected $commands = [
         MakeType::class,
+        MakeCommand::class,
     ];
 
     /** @var Container */
