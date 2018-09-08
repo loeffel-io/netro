@@ -1,0 +1,9 @@
+public: true
+show_ui: true
+labels:
+  name: %plural%
+  singular_name: %class%
+supports:
+  - title
+  - thumbnail
+  - editor

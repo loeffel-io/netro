@@ -12,7 +12,7 @@ use WP_CLI;
  */
 class MakeType extends Console
 {
-    public $command = 'make:type {name}';
+    public $command = 'make:type {name} {--plural}';
 
     public $description = 'Make type files';
 
@@ -66,13 +66,18 @@ class MakeType extends Console
     /**
      * @param string $name
      * @param string $filename
+     * @param string $plural
      * @return string
      */
-    private function createClassContent(string $name, string $filename): string
+    private function createContent(string $name, string $filename, string $plural = ""): string
     {
         $content = file_get_contents($filename);
         $content = str_replace('%class%', ucfirst($name), $content);
         $content = str_replace('%postType%', lcfirst($name), $content);
+
+        if (empty($plural) === false) {
+            $content = str_replace('%plural%', ucfirst($plural), $content);
+        }
 
         return $content;
     }
@@ -93,7 +98,7 @@ class MakeType extends Console
             return;
         }
 
-        $this->filesystem->dumpFile($filename, $this->createClassContent($name, $distFilename));
+        $this->filesystem->dumpFile($filename, $this->createContent($name, $distFilename));
     }
 
     /**
@@ -112,15 +117,37 @@ class MakeType extends Console
             return;
         }
 
-        $this->filesystem->dumpFile($filename, $this->createClassContent($name, $distFilename));
+        $this->filesystem->dumpFile($filename, $this->createContent($name, $distFilename));
+    }
+
+    /**
+     * @param string $name
+     * @param string $plural
+     */
+    private function createConfig(string $name, string $plural)
+    {
+        $filename = $this->getTypePath() . $name . '.yml';
+        $distFilename = NETRO_PLUGIN_PATH . 'resources/templates/type/config.yml.dist';
+
+        if ($this->fileExists($filename)) {
+            return;
+        }
+
+        if ($this->fileExists($distFilename) === false) {
+            return;
+        }
+
+        $this->filesystem->dumpFile($filename, $this->createContent($name, $distFilename, $plural));
     }
 
     public function run()
     {
         $name = $this->arguments()[0];
+        $plural = $this->argument('plural');
 
         $this->createTypeDirectory();
         $this->createClass($name);
         $this->createFacade($name);
+        $this->createConfig($name, $plural);
     }
 }
