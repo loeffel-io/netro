@@ -1,0 +1,11 @@
+<?php
+
+namespace Netro\Facade\Type;
+
+class %class% extends Type
+{
+    protected static function getFacadeAccessor(): string
+    {
+        return \Netro\Type\%class%::class;
+    }
+}

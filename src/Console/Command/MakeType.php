@@ -41,6 +41,14 @@ class MakeType extends Console
         return NETRO_TEMPLATE_SOURCE_PATH . 'Type/';
     }
 
+    /**
+     * @return string
+     */
+    private function getFacadePath(): string
+    {
+        return NETRO_TEMPLATE_SOURCE_PATH . 'Facade/Type/';
+    }
+
     private function createTypeDirectory()
     {
         $this->filesystem->mkdir($this->getTypePath(), 644);
@@ -88,11 +96,31 @@ class MakeType extends Console
         $this->filesystem->dumpFile($filename, $this->createClassContent($name, $distFilename));
     }
 
+    /**
+     * @param string $name
+     */
+    private function createFacade(string $name)
+    {
+        $filename = $this->getFacadePath() . $name . '.php';
+        $distFilename = NETRO_PLUGIN_PATH . 'resources/templates/type/facade.php.dist';
+
+        if ($this->fileExists($filename)) {
+            return;
+        }
+
+        if ($this->fileExists($distFilename) === false) {
+            return;
+        }
+
+        $this->filesystem->dumpFile($filename, $this->createClassContent($name, $distFilename));
+    }
+
     public function run()
     {
         $name = $this->arguments()[0];
 
         $this->createTypeDirectory();
         $this->createClass($name);
+        $this->createFacade($name);
     }
 }
