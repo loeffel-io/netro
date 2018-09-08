@@ -12,7 +12,7 @@ use WP_CLI;
  */
 class MakeType extends Console
 {
-    public $command = 'make:type {name} {--plural}';
+    public $command = 'make:type {name} {plural}';
 
     public $description = 'Make type files';
 
@@ -143,11 +143,13 @@ class MakeType extends Console
     public function run()
     {
         $name = $this->arguments()[0];
-        $plural = $this->argument('plural');
+        $plural = $this->arguments()[1];
 
         $this->createTypeDirectory();
         $this->createClass($name);
         $this->createFacade($name);
         $this->createConfig($name, $plural);
+
+        $this->success("Type $name created successfully");
     }
 }

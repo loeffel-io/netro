@@ -93,5 +93,7 @@ class MakeCommand extends Console
 
         $this->createCommandDirectory();
         $this->createCommand($name);
+
+        $this->success("Command $name created successfully");
     }
 }
