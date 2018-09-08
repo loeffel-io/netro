@@ -5,3 +5,4 @@ parameters:
         - '#.* on an unknown class (WP_Query|WP_Post)\.#'
         - '#Function [a-z\_]+ not found\.#'
         - '#Parameter \$post .* has invalid typehint type WP_Post\.#'
+        - '#Constant .* not found\.#'
