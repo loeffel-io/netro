@@ -87,7 +87,7 @@ class MakeType extends Console
      */
     private function createClass(string $name)
     {
-        $filename = $this->getTypePath() . $name . '.php';
+        $filename = $this->getTypePath() . ucfirst($name) . '.php';
         $distFilename = NETRO_PLUGIN_PATH . 'resources/templates/type/type.php.dist';
 
         if ($this->fileExists($filename)) {
@@ -106,7 +106,7 @@ class MakeType extends Console
      */
     private function createFacade(string $name)
     {
-        $filename = $this->getFacadePath() . $name . '.php';
+        $filename = $this->getFacadePath() . ucfirst($name) . '.php';
         $distFilename = NETRO_PLUGIN_PATH . 'resources/templates/type/facade.php.dist';
 
         if ($this->fileExists($filename)) {
@@ -126,7 +126,7 @@ class MakeType extends Console
      */
     private function createConfig(string $name, string $plural)
     {
-        $filename = $this->getTypePath() . $name . '.yml';
+        $filename = $this->getTypePath() . ucfirst($name) . '.yml';
         $distFilename = NETRO_PLUGIN_PATH . 'resources/templates/type/config.yml.dist';
 
         if ($this->fileExists($filename)) {

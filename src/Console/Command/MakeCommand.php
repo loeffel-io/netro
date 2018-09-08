@@ -73,7 +73,7 @@ class MakeCommand extends Console
      */
     private function createCommand(string $name)
     {
-        $filename = $this->getCommandPath() . $name . '.php';
+        $filename = $this->getCommandPath() . ucfirst($name) . '.php';
         $distFilename = NETRO_PLUGIN_PATH . 'resources/templates/command/command.php.dist';
 
         if ($this->fileExists($filename)) {
