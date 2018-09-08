@@ -10,8 +10,10 @@ License: MIT
 */
 
 use \Dotenv\Dotenv;
-use \Netro\Type\TypeHandler;
 use \Composer\Autoload\ClassLoader;
+use DI\Container;
+use Netro\Type\TypeHandler;
+use Netro\Console\ConsoleHandler;
 
 defined('ABSPATH') or die();
 
@@ -29,14 +31,21 @@ $loader->addPsr4('Netro\\', [
     NETRO_PLUGIN_PATH . 'src/',
 ]);
 
+// Setup container
+$container = new Container();
+
 // Load the env config file
 if (file_exists(NETRO_ENV_PATH)) {
     (new Dotenv(NETRO_TEMPLATE_PATH))->overload();
 }
 
+// Autowire commands
+$consoleHandler = new ConsoleHandler($container, new WP_CLI());
+$consoleHandler->register();
+
 // Autowire types
 foreach (glob(NETRO_TEMPLATE_SOURCE_PATH . 'type/*.php') as $file) {
     $class = '\\Netro\\Type\\' . basename($file, '.php');
-    $typeHandler = new TypeHandler(new $class, NETRO_TEMPLATE_SOURCE_PATH);
+    $typeHandler = new TypeHandler(new $class, NETRO_TEMPLATE_SOURCE_PATH, $container);
     $typeHandler->register();
 }

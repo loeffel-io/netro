@@ -2,6 +2,7 @@
 
 namespace Netro\Type;
 
+use Netro\HandlerInterface;
 use WP_Post;
 use Symfony\Component\Yaml\Yaml;
 use ReflectionClass;
@@ -12,7 +13,7 @@ use DI\Container;
  * Class TypeHandler
  * @package Netro\Type
  */
-class TypeHandler
+class TypeHandler implements HandlerInterface
 {
     /** @var Type $type */
     protected $type;
@@ -30,12 +31,13 @@ class TypeHandler
      * TypeHandler constructor.
      * @param Type $type
      * @param string $path
+     * @param Container $container
      */
-    public function __construct(Type $type, string $path)
+    public function __construct(Type $type, string $path, Container $container)
     {
         $this->type = $type;
         $this->path = $path;
-        $this->container = new Container();
+        $this->container = $container;
         $this->yaml = new Yaml();
     }
 
