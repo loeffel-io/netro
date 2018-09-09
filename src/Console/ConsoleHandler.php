@@ -143,8 +143,8 @@ class ConsoleHandler implements HandlerInterface
      */
     private function parseSynopsisDefault(array $optionMatch): ?string
     {
-        if (empty($optionMatch[4]) === false && $optionMatch[4] === '=' && empty($optionMatch[5]) === false) {
-            return $optionMatch[5];
+        if (empty($optionMatch[4]) === false && $optionMatch[4] === '=') {
+            return $optionMatch[5] ?? null;
         }
 
         return null;
