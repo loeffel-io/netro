@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 if (!function_exists('asset')) {
     /**
      * @param string $path
@@ -20,5 +22,15 @@ if (!function_exists('env')) {
     function env(string $name, string $default = null): string
     {
         return getenv($name) ? getenv($name) : $default;
+    }
+}
+
+if (!function_exists('now')) {
+    /**
+     * @return Carbon
+     */
+    function now(): Carbon
+    {
+        return Carbon::now();
     }
 }

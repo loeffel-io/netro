@@ -314,6 +314,10 @@ abstract class Type implements JsonSerializable
             'post_content' => $this->getContent() ?? "",
             'post_status' => $this->getStatus(),
             'post_author' => $this->getAuthor()->getId(),
+            'post_date' => $this->getCreatedAt()->timezone(date_default_timezone_get())->format('Y-m-d H:i:s'),
+            'post_date_gmt' => $this->getCreatedAt()->format('Y-m-d H:i:s'),
+            'post_modified' => $this->getModifiedAt()->timezone(date_default_timezone_get())->format('Y-m-d H:i:s'),
+            'post_modified_gmt' => $this->getModifiedAt()->format('Y-m-d H:i:s'),
         ];
 
         if ($update === true) {
