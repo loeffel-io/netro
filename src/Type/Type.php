@@ -3,6 +3,7 @@
 namespace Netro\Type;
 
 use Carbon\Carbon;
+use Netro\Support\Author;
 use Netro\Support\Image;
 use WP_Post;
 use WP_Query;
@@ -39,6 +40,9 @@ abstract class Type implements JsonSerializable
     /** @var Image */
     protected $image;
 
+    /** @var Author */
+    protected $author;
+
     /** @var bool */
     protected $register = true;
 
@@ -63,11 +67,16 @@ abstract class Type implements JsonSerializable
         $image = new Image();
         $image->setId((int)get_post_thumbnail_id($post->ID));
 
+        // Author
+        $author = new Author();
+        $author->setId($post->post_author);
+
         return $type->setId($post->ID)
             ->setPostType($post->post_type)
             ->setTitle($post->post_title)
             ->setStatus($post->post_status)
             ->setImage($image)
+            ->setAuthor($author)
             ->setCreatedAt($carbon::parse($post->post_date_gmt))
             ->setModifiedAt($carbon::parse($post->post_modified_gmt))
             ->setContent(apply_filters('the_content', $post->post_content));
@@ -264,6 +273,25 @@ abstract class Type implements JsonSerializable
     }
 
     /**
+     * @return Author
+     */
+    public function getAuthor(): Author
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param Author $author
+     * @return Type
+     */
+    public function setAuthor(Author $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
      * @param array $posts
      * @return array
      */
@@ -285,6 +313,7 @@ abstract class Type implements JsonSerializable
             'post_title' => $this->getTitle(),
             'post_content' => $this->getContent() ?? "",
             'post_status' => $this->getStatus(),
+            'post_author' => $this->getAuthor()->getId(),
         ];
 
         if ($update === true) {
