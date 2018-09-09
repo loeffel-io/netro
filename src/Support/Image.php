@@ -2,7 +2,6 @@
 
 namespace Netro\Support;
 
-use Netro\Type\Type;
 use JsonSerializable;
 
 /**
@@ -14,79 +13,40 @@ class Image implements JsonSerializable
     /** @var int */
     protected $id;
 
-    /** @var Type $type */
-    protected $type;
-
     /**
-     * Image constructor.
-     * @param Type $type
+     * @return int|null
      */
-    public function __construct(Type $type)
+    public function getId(): ?int
     {
-        $this->type = $type;
-        $this->id = $this->getId();
+        return $this->id;
     }
 
     /**
-     * @return int
+     * @param int|null $id
+     * @return Image
      */
-    public function getId(): int
-    {
-        if ($this->hasImage() === false) {
-            return 0;
-        }
-
-        return get_post_thumbnail_id($this->type->getId());
-    }
-
-    /**
-     * @param int $id
-     */
-    public function update(int $id): void
+    public function setId(?int $id): Image
     {
         $this->id = $id;
 
-        if (!$id) {
-            delete_post_thumbnail($this->type->getId());
-            return;
-        }
-
-        set_post_thumbnail($this->type->getId(), $id);
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasImage(): bool
-    {
-        return has_post_thumbnail($this->type->getId());
+        return $this;
     }
 
     /**
      * @param null|string $size
-     * @return string
+     * @return null|string
      */
-    public function getPath(? string $size = 'full'): string
+    public function getPath(? string $size = 'full'): ?string
     {
-        if (!$id = $this->getId()) {
-            return "";
-        }
-
-        $image = wp_get_attachment_image_src($id, $size, false);
-
-        return $image[0] ?? "";
+        return wp_get_attachment_image_src($this->getId(), $size, false)[0] ?? null;
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getMeta(): array
+    public function getMeta(): ?array
     {
-        if (!$id = $this->getId()) {
-            return [];
-        }
-
-        return wp_get_attachment_metadata($this->getId(), false);
+        return wp_get_attachment_metadata($this->getId(), false) ?? null;
     }
 
     /**

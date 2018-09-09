@@ -95,11 +95,6 @@ class Mail
             $this->headers[] = $this->from;
         }
 
-        return wp_mail(
-            implode(",", $this->to),
-            $this->subject,
-            $this->message,
-            $this->headers
-        );
+        return wp_mail(implode(",", $this->to), $this->subject, $this->message, $this->headers);
     }
 }

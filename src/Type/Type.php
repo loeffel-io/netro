@@ -59,11 +59,15 @@ abstract class Type implements JsonSerializable
         $type = new $class;
         $carbon = new Carbon();
 
+        // Image
+        $image = new Image();
+        $image->setId((int)get_post_thumbnail_id($post->ID));
+
         return $type->setId($post->ID)
             ->setPostType($post->post_type)
-            ->initImage()
             ->setTitle($post->post_title)
             ->setStatus($post->post_status)
+            ->setImage($image)
             ->setCreatedAt($carbon::parse($post->post_date_gmt))
             ->setModifiedAt($carbon::parse($post->post_modified_gmt))
             ->setContent(apply_filters('the_content', $post->post_content));
@@ -245,35 +249,16 @@ abstract class Type implements JsonSerializable
      */
     public function getImage(): ?Image
     {
-        $this->initImage();
-
         return $this->image;
     }
 
     /**
-     * @param int $thumbnailId
+     * @param Image $image
      * @return Type
      */
-    public function updateImage(int $thumbnailId): Type
+    public function setImage(Image $image): Type
     {
-        $this->initImage();
-        $this->image->update($thumbnailId);
-
-        return $this;
-    }
-
-    /**
-     * @return Type
-     */
-    public function initImage(): Type
-    {
-        if (empty($this->id)) {
-            trigger_error("Type id is missing", E_USER_ERROR);
-        }
-
-        if (!$this->image instanceof Image) {
-            $this->image = new Image($this);
-        }
+        $this->image = $image;
 
         return $this;
     }
@@ -310,6 +295,18 @@ abstract class Type implements JsonSerializable
     }
 
     /**
+     * @return bool
+     */
+    private function handleImage(): bool
+    {
+        if ($imageId = $this->getImage()->getId()) {
+            return (bool)set_post_thumbnail($this->getId(), $imageId);
+        };
+
+        return delete_post_thumbnail($this->getId());
+    }
+
+    /**
      * @return Type
      * @throws Exception
      */
@@ -320,6 +317,9 @@ abstract class Type implements JsonSerializable
         if (is_wp_error($res)) {
             throw new Exception($res->get_error_message());
         }
+
+        // Update image
+        $this->handleImage();
 
         return $this->find($this->getId());
     }
@@ -335,6 +335,9 @@ abstract class Type implements JsonSerializable
         if (is_wp_error($res)) {
             throw new Exception($res->get_error_message());
         }
+
+        // Update image
+        $this->handleImage();
 
         return $this->find($res);
     }
