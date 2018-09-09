@@ -150,6 +150,6 @@ class MakeType extends Console
         $this->createFacade($name);
         $this->createConfig($name, $plural);
 
-        $this->success("Type $name created successfully");
+        $this->success("Done");
     }
 }
