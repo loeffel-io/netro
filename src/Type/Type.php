@@ -402,6 +402,7 @@ abstract class Type implements JsonSerializable
             'createdAt' => $this->getCreatedAt(),
             'modifiedAt' => $this->getModifiedAt(),
             'image' => $this->getImage(),
+            'author' => $this->getAuthor(),
         ];
     }
 

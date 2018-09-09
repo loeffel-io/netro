@@ -2,11 +2,13 @@
 
 namespace Netro\Support;
 
+use JsonSerializable;
+
 /**
  * Class Author
  * @package Netro\Support
  */
-class Author
+class Author implements JsonSerializable
 {
     /** @var int */
     protected $id;
@@ -69,5 +71,27 @@ class Author
     public function getMeta(string $field): string
     {
         return get_the_author_meta($field, $this->getId());
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'displayName' => $this->getDisplayName(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'email' => $this->getEmail(),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->jsonSerialize());
     }
 }
