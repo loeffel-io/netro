@@ -20,5 +20,6 @@ coverage.xml
 coverage
 
 # sami
-sami.phar
+#sami.phar
 .php_docs.cache
+/docs
