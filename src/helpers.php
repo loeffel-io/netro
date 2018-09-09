@@ -31,6 +31,6 @@ if (!function_exists('now')) {
      */
     function now(): Carbon
     {
-        return Carbon::now();
+        return (new Carbon())->now();
     }
 }
