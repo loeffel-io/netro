@@ -484,6 +484,17 @@ abstract class Type implements JsonSerializable
     }
 
     /**
+     * @param array $args
+     * @return Type
+     */
+    public function raw(array $args): Type
+    {
+        $this->builder = array_merge($this->builder, $args);
+
+        return $this;
+    }
+
+    /**
      * @param int $id
      * @return Type
      */
