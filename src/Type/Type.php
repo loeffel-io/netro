@@ -273,9 +273,9 @@ abstract class Type implements JsonSerializable
     }
 
     /**
-     * @return Author
+     * @return Author|null
      */
-    public function getAuthor(): Author
+    public function getAuthor(): ?Author
     {
         return $this->author;
     }
