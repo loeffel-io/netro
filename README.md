@@ -17,9 +17,9 @@ Framework for WordPress Developers - Super simple & Powerful
 
 | Component   | Implementation | Documentation | Tests | Release |
 |-------------|----------------|---------------|-------|---------|
-| Netro Theme | ✅              | ✅             | ✅     | v0.0.1  |
-|             |                |               |       |         |
-|             |                |               |       |         |
+| Netro Theme | ✅              | ✅             | ✅     | v0.1.0  |
+| Types       | ✅              | ✅             | ❌     | v0.1.0  |
+| Helper      | ✅              | ❌             | ❌     | v0.1.0  |
 
 - Request
 - Session
