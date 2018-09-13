@@ -12,7 +12,7 @@ services:
 
 env:
   global:
-    - TRAVIS_BUILD_DIR=plugin
+    - TRAVIS_BUILD_DIR=/plugin
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
