@@ -500,6 +500,19 @@ abstract class Type implements JsonSerializable
     }
 
     /**
+     * @param int $limit
+     * @param string $column
+     * @return array
+     */
+    public function latest(int $limit, string $column = 'id'): array
+    {
+        $this->orderBy($column, 'desc');
+        $this->limit($limit);
+
+        return $this->get();
+    }
+
+    /**
      * @param int $id
      * @return Type
      */
