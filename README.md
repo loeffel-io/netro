@@ -25,6 +25,8 @@ Framework for WordPress Developers - Super simple & Powerful
 
 ## Types example
 
+Quick & dirty example about how you can use types and there facades
+
 ![example](https://github.com/loeffel-io/netro-docs/blob/master/images/netro-example.gif?raw=true)
 
 ## Roadmap to v1.0.0
