@@ -15,6 +15,12 @@ Framework for WordPress Developers - Super simple & Powerful
 
 ## Roadmap
 
+| Component   | Implementation | Documentation | Tests | Release |
+|-------------|----------------|---------------|-------|---------|
+| Netro Theme | ✅              | ✅             | ✅     | v0.0.1  |
+|             |                |               |       |         |
+|             |                |               |       |         |
+
 - Request
 - Session
 - Cache
