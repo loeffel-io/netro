@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Type;
 
+use Netro\Support\Author;
 use Netro\Type\Type;
 use PHPUnit\Framework\TestCase;
 use Faker;
@@ -41,6 +42,7 @@ class TypeTest extends TestCase
                     'status' => FakerBase::randomElement(['publish', 'draft']),
                     'createdAt' => now(),
                     'modifiedAt' => now(),
+                    'author' => get_user_by('id', 1),
                 ]
             ],
             [
@@ -52,6 +54,7 @@ class TypeTest extends TestCase
                     'status' => FakerBase::randomElement(['publish', 'draft']),
                     'createdAt' => now(),
                     'modifiedAt' => now(),
+                    'author' => get_user_by('id', 1),
                 ]
             ]
         ];
@@ -61,9 +64,13 @@ class TypeTest extends TestCase
 
             $data = $test['data'];
             $class = new $test['class'];
+            $author = new Author();
+            $author->setId($data['author']->ID);
+
             $save = $class->setTitle($data['title'])
                 ->setContent($data['content'])
                 ->setStatus($data['status'])
+                ->setAuthor($author)
                 ->save();
 
             $this->assertInstanceOf($test['class'], $save);
@@ -71,6 +78,15 @@ class TypeTest extends TestCase
             $this->assertEquals(apply_filters('the_content', $data['content']), $save->getContent());
             $this->assertEquals($data['status'], $save->getStatus());
             $this->assertEquals($class->getPostType(), $save->getPostType());
+            $this->assertEquals($data['author']->ID, $save->getAuthor()->getId());
+            $this->assertEquals($data['author']->display_name, $save->getAuthor()->getDisplayName());
+            $this->assertEquals($data['author']->first_name, $save->getAuthor()->getFirstName());
+            $this->assertEquals($data['author']->last_name, $save->getAuthor()->getLastName());
+            $this->assertEquals($data['author']->user_email, $save->getAuthor()->getEmail());
+            $this->assertEquals(
+                get_user_meta($data['author']->ID, 'last_name', true),
+                $save->getAuthor()->getMeta('last_name')
+            );
 
             self::$data[] = $save;
         }
