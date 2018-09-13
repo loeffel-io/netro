@@ -48,3 +48,7 @@ Framework for WordPress Developers - Super simple & Powerful
 | Cache         | ❌              | ❌             | ❌     | v0.4.0  |
 | Logging       | ❌              | ❌             | ❌     | v0.4.0  |
 | Middleware    | ❌              | ❌             | ❌     | v0.5.0  |
+
+## Bug Reports
+
+If you discover a bug in Netro, please open an issue on the [issues](https://github.com/loeffel-io/netro) section
