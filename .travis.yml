@@ -12,13 +12,19 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
-  - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-  - chmod +x wp-cli.phar && mv wp-cli.phar wp
-  - ./wp --version
+  - mkdir -p wordpress
+  - mkdir -p tools
+  - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P $(pwd)/tools/
+  - chmod +x tools/wp-cli.phar && mv tools/wp-cli.phar tools/wp
+  - export PATH=$PATH:$(pwd)/tools
+  - export PATH=vendor/bin:$PATH
+
+install:
+  - cd wordpress
   - ./wp core download
-  - ls -al
   - ./wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_"
   - ./wp core update-db --network
+  - cd $TRAVIS_BUILD_DIR
 
 before_script:
   - composer global require hirak/prestissimo
