@@ -14,14 +14,14 @@ before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
   - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
   - chmod +x wp-cli.phar && mv wp-cli.phar wp
-  - wp --version
+  - ./wp --version
 
 before_script:
   - composer global require hirak/prestissimo
   - composer install --dev --prefer-source --no-interaction
-  - wp core download
-  - wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_" --force
-  - wp core update-db --network
+  - ./wp core download
+  - ./wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_" --force
+  - ./wp core update-db --network
 
 script:
   - ./vendor/bin/phpstan analyse -c phpstan.neon --level=5 src
