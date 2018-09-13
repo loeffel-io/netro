@@ -7,10 +7,6 @@
 # Netro
 Framework for WordPress Developers - Super simple & Powerful
 
-## Example
-
-![example](https://github.com/loeffel-io/netro-docs/blob/master/images/netro-example.gif?raw=true)
-
 ## Installation
 
 - [Download](https://github.com/loeffel-io/netro/archive/master.zip) the latest version
@@ -26,6 +22,10 @@ Framework for WordPress Developers - Super simple & Powerful
 ## Netro Theme
 
 - [Netro Theme](https://github.com/loeffel-io/netro-theme)
+
+## Types example
+
+![example](https://github.com/loeffel-io/netro-docs/blob/master/images/netro-example.gif?raw=true)
 
 ## Roadmap to v1.0.0
 
