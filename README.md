@@ -4,9 +4,16 @@
 [![codecov](https://codecov.io/gh/loeffel-io/netro/branch/master/graph/badge.svg?token=tmPeOhqvU6)](https://codecov.io/gh/loeffel-io/netro)
 
 # Netro
-The Framework for WordPress Developers
+Framework for WordPress Developers - Super simple & Powerful
 
-## Components
+## Installation
+
+- [Download](https://github.com/loeffel-io/netro/archive/master.zip) the latest version
+- Unzip the file to your WordPress plugins directory `wp-content/plugins`
+- Run `composer install` in the `netro` plugin directory
+- Activate the plugin in your WP Admin
+
+## Roadmap
 
 - Request
 - Session
