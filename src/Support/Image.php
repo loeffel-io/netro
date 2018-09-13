@@ -22,10 +22,10 @@ class Image implements JsonSerializable
     }
 
     /**
-     * @param int|null $id
+     * @param int $id
      * @return Image
      */
-    public function setId(?int $id): Image
+    public function setId(int $id): Image
     {
         $this->id = $id;
 

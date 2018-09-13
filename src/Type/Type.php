@@ -216,9 +216,9 @@ abstract class Type implements JsonSerializable
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
-    public function getCreatedAt(): Carbon
+    public function getCreatedAt(): ?Carbon
     {
         return $this->createdAt;
     }
@@ -235,9 +235,9 @@ abstract class Type implements JsonSerializable
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
-    public function getModifiedAt(): Carbon
+    public function getModifiedAt(): ?Carbon
     {
         return $this->modifiedAt;
     }
@@ -311,14 +311,29 @@ abstract class Type implements JsonSerializable
         $array = [
             'post_type' => $this->getPostType(),
             'post_title' => $this->getTitle(),
-            'post_content' => $this->getContent() ?? "",
+            'post_content' => $this->getContent(),
             'post_status' => $this->getStatus(),
-            'post_author' => $this->getAuthor()->getId(),
-            'post_date' => $this->getCreatedAt()->timezone(date_default_timezone_get())->format('Y-m-d H:i:s'),
-            'post_date_gmt' => $this->getCreatedAt()->format('Y-m-d H:i:s'),
-            'post_modified' => $this->getModifiedAt()->timezone(date_default_timezone_get())->format('Y-m-d H:i:s'),
-            'post_modified_gmt' => $this->getModifiedAt()->format('Y-m-d H:i:s'),
         ];
+
+        if ($this->getCreatedAt() instanceof Carbon) {
+            $array['post_date'] = $this->getCreatedAt()
+                ->timezone(date_default_timezone_get())
+                ->format('Y-m-d H:i:s');
+
+            $array['post_date_gmt'] = $this->getCreatedAt()->format('Y-m-d H:i:s');
+        }
+
+        if ($this->getModifiedAt() instanceof Carbon) {
+            $array['post_modified'] = $this->getModifiedAt()
+                ->timezone(date_default_timezone_get())
+                ->format('Y-m-d H:i:s');
+
+            $array['post_modified_gmt'] = $this->getModifiedAt()->format('Y-m-d H:i:s');
+        }
+
+        if ($this->getAuthor() instanceof Author) {
+            $array['post_author'] = $this->getAuthor()->getId();
+        }
 
         if ($update === true) {
             $array['ID'] = $this->getId();
@@ -332,6 +347,10 @@ abstract class Type implements JsonSerializable
      */
     private function handleImage(): bool
     {
+        if (!$this->getImage() instanceof Image) {
+            return false;
+        }
+
         if ($imageId = $this->getImage()->getId()) {
             return (bool)set_post_thumbnail($this->getId(), $imageId);
         };
