@@ -23,10 +23,8 @@ install:
   - cd wordpress
   - wp core download
   - wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_"
-  - ls -al
-  - cd $TRAVIS_BUILD_DIR
-  - pwd
-  - ls -al
+  - wp core install --url=localhost:8000 --title=Test --admin_user=lucas.loeffel --admin_password=password --admin_email=lucas@loeffel.io
+  # - cd $TRAVIS_BUILD_DIR
 
 before_script:
   - composer global require hirak/prestissimo
