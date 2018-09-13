@@ -538,12 +538,7 @@ abstract class Type implements JsonSerializable
      */
     public function find(int $id): Type
     {
-        $query = (new WP_Query([
-            'post_type' => $this->getPostType(),
-            'p' => $id,
-        ]));
-
-        return $this->new($query->post);
+        return $this->new(get_post($id));
     }
 
     /**

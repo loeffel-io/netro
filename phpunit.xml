@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="./vendor/autoload.php"
+         bootstrap="./tests/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -12,6 +12,9 @@
     <testsuites>
         <testsuite name="Unit">
             <directory suffix=".php">./Tests/Unit/</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory suffix=".php">./Tests/Feature/</directory>
         </testsuite>
     </testsuites>
     <filter>
