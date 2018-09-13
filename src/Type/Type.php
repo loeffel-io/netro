@@ -506,6 +506,7 @@ abstract class Type implements JsonSerializable
      */
     public function latest(int $limit, string $column = 'id'): array
     {
+        $this->whereStatus('publish');
         $this->orderBy($column, 'desc');
         $this->limit($limit);
 
