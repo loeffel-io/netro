@@ -22,7 +22,7 @@ before_script:
   - composer global require hirak/prestissimo
   - composer install --dev --prefer-source --no-interaction
   - wp core download
-  - wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_"
+  - wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_" --force
   - wp core update-db --network
 
 script:
