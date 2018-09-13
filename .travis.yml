@@ -12,13 +12,13 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
-  - mkdir -p ./wordpress
-  - mkdir -p ./tools
-  - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P $(pwd)/tools/
 
 before_script:
   - composer global require hirak/prestissimo
   - composer install --dev --prefer-source --no-interaction
+  - ./vendor/bin/wp core download
+  - ./vendor/bin/wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_"
+  - ./vendor/bin/wp core update-db --network
 
 script:
   - ./vendor/bin/phpstan analyse -c phpstan.neon --level=5 src
