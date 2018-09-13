@@ -10,12 +10,11 @@ php:
 services:
   - mysql
 
-env:
-  global:
-    - TRAVIS_BUILD_DIR=/plugin
-
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - cd ~
+  - ls -al
+  - pwd
   - mkdir -p wordpress
   - mkdir -p tools
   - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P $(pwd)/tools/
