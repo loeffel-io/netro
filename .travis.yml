@@ -10,6 +10,10 @@ php:
 services:
   - mysql
 
+env:
+  global:
+    - TRAVIS_BUILD_DIR=plugin
+
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
   - mkdir -p wordpress
@@ -24,7 +28,9 @@ install:
   - wp core download
   - wp config create --dbname="test" --dbuser="root" --dbpass="" --dbhost="127.0.0.1" --dbprefix="wp_"
   - wp core install --url=localhost:8000 --title=Test --admin_user=lucas.loeffel --admin_password=password --admin_email=lucas@loeffel.io
-  # - cd $TRAVIS_BUILD_DIR
+  - cd $TRAVIS_BUILD_DIR
+  - ls -al
+  - pwd
 
 before_script:
   - composer global require hirak/prestissimo
