@@ -13,7 +13,7 @@ Framework for WordPress Developers - Super simple & Powerful
 - Run `composer install` in the `netro` plugin directory
 - Activate the plugin in your WP Admin
 
-## Roadmap
+## Roadmap to v1.0.0
 
 | Component     | Implementation | Documentation | Tests | Release |
 |---------------|----------------|---------------|-------|---------|
@@ -28,28 +28,13 @@ Framework for WordPress Developers - Super simple & Powerful
 | Commands      | ✅              | ✅             | ❌     | v0.1.0  |
 | Helper        | ✅              | ❌             | ❌     | v0.1.0  |
 | Mail          | ✅              | ✅             | ✅     | v0.1.0  |
+| Types/Register| ❌              | ❌             | ❌     | v0.2.0  |
 | Auth          | ❌              | ❌             | ❌     | v0.2.0  |
 | User          | ❌              | ❌             | ❌     | v0.2.0  |
 | Request       | ❌              | ❌             | ❌     | v0.2.0  |
 | Session       | ❌              | ❌             | ❌     | v0.2.0  |
-
-- Request
-- Session
-- Cache
-- Validation
-- Logging
-- Middleware
-- Commands
-- Helper
-- Auth
-- Mail
-- Theme
-- Custom Post Types
-  - Create
-  - Read
-  - Update
-  - Delete
-  - Events
-- Hooks
-  - Filter
-  - Action
+| Forms         | ❌              | ❌             | ❌     | v0.3.0  |
+| Validation    | ❌              | ❌             | ❌     | v0.3.0  |
+| Cache         | ❌              | ❌             | ❌     | v0.4.0  |
+| Logging       | ❌              | ❌             | ❌     | v0.4.0  |
+| Middleware    | ❌              | ❌             | ❌     | v0.5.0  |
