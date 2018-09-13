@@ -34,6 +34,7 @@ Framework for WordPress Developers - Super simple & Powerful
 | Types/Delete  | ✅              | ✅             | ❌     | v0.1.0  |
 | Types/Author  | ✅              | ✅             | ❌     | v0.1.0  |
 | Types/Image   | ✅              | ✅             | ❌     | v0.1.0  |
+| Facades       | ✅              | ✅             | ❌     | v0.1.0  |
 | Commands      | ✅              | ✅             | ❌     | v0.1.0  |
 | Helper        | ✅              | ❌             | ❌     | v0.1.0  |
 | Mail          | ✅              | ✅             | ✅     | v0.1.0  |
