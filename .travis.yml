@@ -12,6 +12,9 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - mkdir -p ./wordpress
+  - mkdir -p ./tools
+  - wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P $(pwd)/tools/
 
 before_script:
   - composer global require hirak/prestissimo
