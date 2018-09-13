@@ -31,6 +31,7 @@ install:
 before_script:
   - composer global require hirak/prestissimo
   - composer install --dev --prefer-source --no-interaction
+  - wp plugin activate netro
 
 script:
   - ./vendor/bin/phpstan analyse -c phpstan.neon --level=5 src
