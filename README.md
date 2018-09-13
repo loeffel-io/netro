@@ -13,6 +13,15 @@ Framework for WordPress Developers - Super simple & Powerful
 - Run `composer install` in the `netro` plugin directory
 - Activate the plugin in your WP Admin
 
+## Documentation
+
+- [Documentation](https://docs.wp-netro.io)
+- [API Documentation](https://api.wp-netro.io)
+
+## Netro Theme
+
+- [Netro Theme](https://github.com/loeffel-io/netro-theme)
+
 ## Roadmap to v1.0.0
 
 | Component     | Implementation | Documentation | Tests | Release |
