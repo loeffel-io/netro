@@ -28,6 +28,10 @@ Framework for WordPress Developers - Super simple & Powerful
 | Commands      | ✅              | ✅             | ❌     | v0.1.0  |
 | Helper        | ✅              | ❌             | ❌     | v0.1.0  |
 | Mail          | ✅              | ✅             | ✅     | v0.1.0  |
+| Auth          | ❌              | ❌             | ❌     | v0.2.0  |
+| User          | ❌              | ❌             | ❌     | v0.2.0  |
+| Request       | ❌              | ❌             | ❌     | v0.2.0  |
+| Session       | ❌              | ❌             | ❌     | v0.2.0  |
 
 - Request
 - Session
