@@ -28,6 +28,48 @@ class TypeTest extends TestCase
     }
 
     /**
+     * @param array $data
+     * @return Author
+     */
+    private function createAuthor(array $data): Author
+    {
+        $author = new Author();
+        return $author->setId($data['author']->ID);
+    }
+
+    /**
+     * @param Type $class
+     * @param array $data
+     * @return Type
+     * @throws Exception
+     */
+    private function save(Type $class, array $data): Type
+    {
+        return $class->setTitle($data['title'])
+            ->setContent($data['content'])
+            ->setStatus($data['status'])
+            ->setAuthor($this->createAuthor($data))
+            ->save();
+    }
+
+    /**
+     * @param Type $type
+     * @param array $data
+     */
+    private function assertAuthor(Type $type, array $data)
+    {
+        $this->assertEquals($data['author']->ID, $type->getAuthor()->getId());
+        $this->assertEquals($data['author']->display_name, $type->getAuthor()->getDisplayName());
+        $this->assertEquals($data['author']->first_name, $type->getAuthor()->getFirstName());
+        $this->assertEquals($data['author']->last_name, $type->getAuthor()->getLastName());
+        $this->assertEquals($data['author']->user_email, $type->getAuthor()->getEmail());
+        $this->assertEquals(
+            get_user_meta($data['author']->ID, 'last_name', true),
+            $type->getAuthor()->getMeta('last_name')
+        );
+    }
+
+    /**
      * @throws Exception
      */
     public function testSave()
@@ -64,31 +106,16 @@ class TypeTest extends TestCase
 
             $data = $test['data'];
             $class = new $test['class'];
-            $author = new Author();
-            $author->setId($data['author']->ID);
+            $type = $this->save($class, $data);
 
-            $save = $class->setTitle($data['title'])
-                ->setContent($data['content'])
-                ->setStatus($data['status'])
-                ->setAuthor($author)
-                ->save();
+            $this->assertInstanceOf($test['class'], $type);
+            $this->assertEquals($data['title'], $type->getTitle());
+            $this->assertEquals(apply_filters('the_content', $data['content']), $type->getContent());
+            $this->assertEquals($data['status'], $type->getStatus());
+            $this->assertEquals($class->getPostType(), $type->getPostType());
+            $this->assertAuthor($type, $data);
 
-            $this->assertInstanceOf($test['class'], $save);
-            $this->assertEquals($data['title'], $save->getTitle());
-            $this->assertEquals(apply_filters('the_content', $data['content']), $save->getContent());
-            $this->assertEquals($data['status'], $save->getStatus());
-            $this->assertEquals($class->getPostType(), $save->getPostType());
-            $this->assertEquals($data['author']->ID, $save->getAuthor()->getId());
-            $this->assertEquals($data['author']->display_name, $save->getAuthor()->getDisplayName());
-            $this->assertEquals($data['author']->first_name, $save->getAuthor()->getFirstName());
-            $this->assertEquals($data['author']->last_name, $save->getAuthor()->getLastName());
-            $this->assertEquals($data['author']->user_email, $save->getAuthor()->getEmail());
-            $this->assertEquals(
-                get_user_meta($data['author']->ID, 'last_name', true),
-                $save->getAuthor()->getMeta('last_name')
-            );
-
-            self::$data[] = $save;
+            self::$data[] = $type;
         }
     }
 
