@@ -34,12 +34,12 @@ Quick & dirty example about how you can use types and there facades
 | Component     | Implementation | Documentation | Tests | Release |
 |---------------|----------------|---------------|-------|---------|
 | Netro Theme   | ✅              | ✅             | ✅     | v0.1.0  |
-| Types         | ✅              | ✅             | ❌     | v0.1.0  |
-| Types/Create  | ✅              | ✅             | ❌     | v0.1.0  |
+| Types         | ✅              | ✅             | ✅     | v0.1.0  |
+| Types/Create  | ✅              | ✅             | ✅     | v0.1.0  |
 | Types/Update  | ✅              | ✅             | ❌     | v0.1.0  |
 | Types/Read    | ✅              | ✅             | ❌     | v0.1.0  |
-| Types/Delete  | ✅              | ✅             | ❌     | v0.1.0  |
-| Types/Author  | ✅              | ✅             | ❌     | v0.1.0  |
+| Types/Delete  | ✅              | ✅             | ✅     | v0.1.0  |
+| Types/Author  | ✅              | ✅             | ✅     | v0.1.0  |
 | Types/Image   | ✅              | ✅             | ❌     | v0.1.0  |
 | Facades       | ✅              | ✅             | ❌     | v0.1.0  |
 | Commands      | ✅              | ✅             | ❌     | v0.1.0  |
