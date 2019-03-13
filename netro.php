@@ -21,8 +21,8 @@ defined('ABSPATH') or die();
 define('NETRO_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('NETRO_TEMPLATE_PATH', get_template_directory());
 define('NETRO_TEMPLATE_SOURCE_PATH', NETRO_TEMPLATE_PATH . '/netro/');
-define('NETRO_ENV_PATH', NETRO_TEMPLATE_SOURCE_PATH . '/.env');
-define('NETRO_APP_PATH', NETRO_TEMPLATE_SOURCE_PATH . '/app.php');
+define('NETRO_ENV_PATH', NETRO_TEMPLATE_SOURCE_PATH . '.env');
+define('NETRO_APP_PATH', NETRO_TEMPLATE_SOURCE_PATH . 'app.php');
 
 // Setup autoloader
 require_once __DIR__ . '/vendor/autoload.php';
