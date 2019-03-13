@@ -5,11 +5,18 @@ use Carbon\Carbon;
 if (!function_exists('asset')) {
     /**
      * @param string $path
+     * @param bool $dev
      * @return string
      */
-    function asset(string $path): string
+    function asset(string $path, bool $dev = false): string
     {
-        return get_template_directory_uri() . '/assets/' . $path;
+        $path = get_template_directory_uri() . '/assets/' . $path;
+
+        if ($dev !== true) {
+            return $path;
+        }
+
+        return $path . '?v=' . rand(1, 9999);
     }
 }
 

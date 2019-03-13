@@ -9,8 +9,8 @@ Author URI: https://loeffel.io
 License: MIT
 */
 
-use \Dotenv\Dotenv;
-use \Composer\Autoload\ClassLoader;
+use Dotenv\Dotenv;
+use Composer\Autoload\ClassLoader;
 use DI\Container;
 use Netro\Type\TypeHandler;
 use Netro\Console\ConsoleHandler;
@@ -38,7 +38,8 @@ $container = new Container();
 
 // Load the env config file
 if (file_exists(NETRO_ENV_PATH)) {
-    (new Dotenv(NETRO_TEMPLATE_PATH))->overload();
+    $dotenv = new Dotenv(NETRO_TEMPLATE_PATH);
+    $dotenv->overload();
 }
 
 // Autowire commands
