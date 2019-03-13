@@ -10,7 +10,7 @@ Framework for WordPress Developers - Super simple & Powerful
 ## Installation
 
 - [Download](https://github.com/loeffel-io/netro/archive/master.zip) the latest version
-- Unzip the file to your WordPress plugins directory `wp-content/plugins`
+- Unzip the file to your WordPress plugins directory `wp-content/plugins/netro`
 - Run `composer install` in the `netro` plugin directory
 - Activate the plugin in your WP Admin
 
