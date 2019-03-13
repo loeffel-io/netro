@@ -24,9 +24,9 @@ if (!function_exists('env')) {
     /**
      * @param string $name
      * @param string|null $default
-     * @return string
+     * @return null|string
      */
-    function env(string $name, string $default = null): string
+    function env(string $name, string $default = null): ?string
     {
         return getenv($name) ? getenv($name) : $default;
     }

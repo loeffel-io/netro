@@ -38,7 +38,7 @@ $container = new Container();
 
 // Load the env config file
 if (file_exists(NETRO_ENV_PATH)) {
-    $dotenv = new Dotenv(NETRO_ENV_PATH);
+    $dotenv = new Dotenv(NETRO_TEMPLATE_SOURCE_PATH);
     $dotenv->overload();
 }
 
