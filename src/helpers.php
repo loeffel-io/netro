@@ -8,7 +8,7 @@ if (!function_exists('asset')) {
      * @param bool $dev
      * @return string
      */
-    function asset(string $path, bool $dev = false): string
+    function asset(string $path, bool $dev): string
     {
         $path = get_template_directory_uri() . '/assets/' . $path;
 
