@@ -117,7 +117,10 @@ class TypeHandler implements HandlerInterface
         }, 10, 3);
     }
 
-    public function register()
+    /**
+     * @param array $app
+     */
+    public function register(array $app)
     {
         if ($this->type->isRegister() === false) {
             return;

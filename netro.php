@@ -22,6 +22,7 @@ define('NETRO_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('NETRO_TEMPLATE_PATH', get_template_directory());
 define('NETRO_TEMPLATE_SOURCE_PATH', NETRO_TEMPLATE_PATH . '/netro/');
 define('NETRO_ENV_PATH', NETRO_TEMPLATE_SOURCE_PATH . '/.env');
+define('NETRO_APP_PATH', NETRO_TEMPLATE_SOURCE_PATH . '/app.php');
 
 // Setup autoloader
 require_once __DIR__ . '/vendor/autoload.php';
@@ -42,13 +43,16 @@ if (file_exists(NETRO_ENV_PATH)) {
     $dotenv->overload();
 }
 
+// Load app file
+$app = require_once(NETRO_APP_PATH);
+
 // Autowire commands
 $consoleHandler = new ConsoleHandler($container, new WP_CLI());
-$consoleHandler->register();
+$consoleHandler->register($app);
 
 // Autowire types
 foreach (glob(NETRO_TEMPLATE_SOURCE_PATH . 'type/*.php') as $file) {
     $class = '\\Netro\\Type\\' . basename($file, '.php');
     $typeHandler = new TypeHandler(new $class, NETRO_TEMPLATE_SOURCE_PATH, $container);
-    $typeHandler->register();
+    $typeHandler->register($app);
 }

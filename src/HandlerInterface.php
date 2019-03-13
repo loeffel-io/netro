@@ -8,5 +8,5 @@ namespace Netro;
  */
 interface HandlerInterface
 {
-    public function register();
+    public function register(array $app);
 }

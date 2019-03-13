@@ -236,8 +236,22 @@ class ConsoleHandler implements HandlerInterface
         ];
     }
 
-    public function register()
+    /**
+     * @param array $config
+     * @return array
+     */
+    public function mergeConfig(array $config): array
     {
+        return array_merge($this->commands, $config);
+    }
+
+    /**
+     * @param array $app
+     */
+    public function register(array $app)
+    {
+        $this->commands = $this->mergeConfig($app['commands']);
+
         foreach ($this->commands as $class) {
             try {
                 $defaultProperties = $this->getDefaultProperties($class);
