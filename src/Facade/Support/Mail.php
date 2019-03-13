@@ -7,7 +7,6 @@ use Netro\Facade\Facade;
 /**
  * Class Mail
  * @package Netro\Facade\Support
- * @method static \Netro\Support\Mail to(string $mail, string $name = null)
  */
 class Mail extends Facade
 {

@@ -21,7 +21,7 @@ defined('ABSPATH') or die();
 define('NETRO_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('NETRO_TEMPLATE_PATH', get_template_directory());
 define('NETRO_TEMPLATE_SOURCE_PATH', NETRO_TEMPLATE_PATH . '/netro/');
-define('NETRO_ENV_PATH', NETRO_TEMPLATE_PATH . '/.env');
+define('NETRO_ENV_PATH', NETRO_TEMPLATE_SOURCE_PATH . '/.env');
 
 // Setup autoloader
 require_once __DIR__ . '/vendor/autoload.php';
@@ -38,7 +38,7 @@ $container = new Container();
 
 // Load the env config file
 if (file_exists(NETRO_ENV_PATH)) {
-    $dotenv = new Dotenv(NETRO_TEMPLATE_PATH);
+    $dotenv = new Dotenv(NETRO_ENV_PATH);
     $dotenv->overload();
 }
 
