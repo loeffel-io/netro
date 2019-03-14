@@ -250,7 +250,7 @@ class ConsoleHandler implements HandlerInterface
      */
     public function register(array $app)
     {
-        $this->commands = $this->mergeConfig($app['commands']);
+        $this->commands = $this->mergeConfig($app['commands'] ?? []);
 
         foreach ($this->commands as $class) {
             try {
