@@ -44,7 +44,10 @@ if (file_exists(NETRO_ENV_PATH)) {
 }
 
 // Load app file
-$app = require_once(NETRO_APP_PATH);
+$app = [];
+if (file_exists(NETRO_APP_PATH)) {
+    $app = require_once(NETRO_APP_PATH);
+}
 
 // Autowire commands
 $consoleHandler = new ConsoleHandler($container, new WP_CLI());
