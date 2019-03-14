@@ -3,9 +3,12 @@
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 [![codecov](https://codecov.io/gh/loeffel-io/netro/branch/master/graph/badge.svg?token=tmPeOhqvU6)](https://codecov.io/gh/loeffel-io/netro)
 
-# Netro [WIP]
+# Netro
 
-Framework for WordPress Developers - Super simple & powerful
+Framework for WordPress Developers - Super simple, beautiful & powerful
+
+- [Documentation](https://docs.wp-netro.io)
+- [API Documentation](https://api.wp-netro.io)
 
 ## Installation
 
@@ -13,11 +16,6 @@ Framework for WordPress Developers - Super simple & powerful
 - Unzip the files to your WordPress plugins directory `wp-content/plugins/netro`
 - Run `composer install` in the `wp-content/plugins/netro` directory
 - Activate the plugin in your WPAdmin
-
-## Documentation
-
-- [Documentation](https://docs.wp-netro.io)
-- [API Documentation](https://api.wp-netro.io)
 
 ## Netro Theme
 
