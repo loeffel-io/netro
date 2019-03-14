@@ -17,10 +17,6 @@ Framework for WordPress Developers - Super simple, beautiful & powerful
 - Run `composer install` in the `wp-content/plugins/netro` directory
 - Activate the plugin in your WPAdmin
 
-## Netro Theme
-
-- [Netro Theme](https://github.com/loeffel-io/netro-theme)
-
 ## Example
 
 Quick & dirty example about how you can use types and there facades
@@ -29,15 +25,14 @@ Quick & dirty example about how you can use types and there facades
 
 ## Roadmap
 
+-   Routing 
+-   Request
+-   Response
+-   Session
+-   Validation
 -   Auth
 -   User
--   Request
--   Session
 -   Forms
--   Validation
--   Cache
--   Logging
--   Middleware
 
 ## Bug Reports
 
