@@ -3,8 +3,8 @@
 Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 
 [![Build Status](https://travis-ci.com/loeffel-io/netro.svg?token=diwUYjrdo8kHiwiMCFuq&branch=master)](https://travis-ci.com/loeffel-io/netro)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 - [Documentation](https://docs.wp-netro.io)
 - [API Documentation](https://api.wp-netro.io)
