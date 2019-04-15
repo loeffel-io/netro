@@ -9,10 +9,8 @@ Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 - [Documentation](https://docs.wp-netro.io)
 - [API Documentation](https://api.wp-netro.io)
 
-**Example - display last 3 posts**
-
 ```php
-# header.php
+# header.php - display last 3 posts
 
 use Netro\Facade\Type\Post;
 
