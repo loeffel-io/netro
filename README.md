@@ -16,7 +16,7 @@ Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 
 use Netro\Facade\Type\Post;
 
-foreach (Post::latest(3)->whereStatus('publish') as $post) {
+foreach (Post::latest(3) as $post) {
     $post->getTitle();
     $post->getContent();
     $post->getCreatedAt()->diffForHumans();
