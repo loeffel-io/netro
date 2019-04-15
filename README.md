@@ -1,11 +1,10 @@
+![example](https://github.com/loeffel-io/netro-docs/blob/master/images/netro.png?raw=true)
+
+Framework for WordPress Developers - Super simple, beautiful & powerful
+
 [![Build Status](https://travis-ci.com/loeffel-io/netro.svg?token=diwUYjrdo8kHiwiMCFuq&branch=master)](https://travis-ci.com/loeffel-io/netro)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
-[![codecov](https://codecov.io/gh/loeffel-io/netro/branch/master/graph/badge.svg?token=tmPeOhqvU6)](https://codecov.io/gh/loeffel-io/netro)
-
-# Netro
-
-Framework for WordPress Developers - Super simple, beautiful & powerful
 
 - [Documentation](https://docs.wp-netro.io)
 - [API Documentation](https://api.wp-netro.io)
