@@ -16,23 +16,6 @@ Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 - Run `composer install` in the `wp-content/plugins/netro` directory
 - Activate the plugin in your WPAdmin
 
-## Example
-
-Quick & dirty example about how you can use types and there facades
-
-![example](https://github.com/loeffel-io/netro-docs/blob/master/images/netro-example.gif?raw=true)
-
-## Roadmap
-
--   Routing 
--   Request
--   Response
--   Session
--   Validation
--   Auth
--   User
--   Forms
-
 ## Bug Reports
 
 If you discover a bug in Netro, please open an issue on the [issues](https://github.com/loeffel-io/netro) section
