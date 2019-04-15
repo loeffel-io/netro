@@ -10,7 +10,6 @@ Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 - [API Documentation](https://api.wp-netro.io)
 
 ```php
-<?php
 # header.php
 
 use Netro\Facade\Type\Post;
