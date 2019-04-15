@@ -9,6 +9,21 @@ Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 - [Documentation](https://docs.wp-netro.io)
 - [API Documentation](https://api.wp-netro.io)
 
+```php
+<?php
+# header.php
+
+use Netro\Facade\Type\Post;
+
+foreach (Post::latest(3) as $post) {
+    $post->getTitle();
+    $post->getContent();
+    $post->getCreatedAt()->diffForHumans();
+    $post->getImage()->getPath();
+    $post->getAuthor()->getLastName();
+}
+```
+
 ## Installation
 
 - [Download](https://github.com/loeffel-io/netro/archive/master.zip) the latest version
