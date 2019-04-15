@@ -1,4 +1,4 @@
-![example](https://github.com/loeffel-io/netro-docs/blob/master/images/netro.png?raw=true)
+<img src="https://github.com/loeffel-io/netro-docs/blob/master/images/netro.png?raw=true" width="200">
 
 Framework for WordPress Developers - Super simple, beautiful & powerful
 
