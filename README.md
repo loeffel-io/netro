@@ -1,6 +1,6 @@
 <img src="https://github.com/loeffel-io/netro-docs/blob/master/images/netro.png?raw=true" width="200">
 
-Framework for WordPress Developers - Super simple, beautiful & powerful
+Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 
 [![Build Status](https://travis-ci.com/loeffel-io/netro.svg?token=diwUYjrdo8kHiwiMCFuq&branch=master)](https://travis-ci.com/loeffel-io/netro)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
