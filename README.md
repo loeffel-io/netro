@@ -9,12 +9,14 @@ Plugin Framework for WordPress Developers - Super simple, beautiful & powerful
 - [Documentation](https://docs.wp-netro.io)
 - [API Documentation](https://api.wp-netro.io)
 
+**Example - display last 3 posts**
+
 ```php
 # header.php
 
 use Netro\Facade\Type\Post;
 
-foreach (Post::latest(3) as $post) {
+foreach (Post::latest(3)->whereStatus('publish') as $post) {
     $post->getTitle();
     $post->getContent();
     $post->getCreatedAt()->diffForHumans();
